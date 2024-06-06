@@ -1,4 +1,4 @@
-package com.example.scareme.signInScreen.data
+package com.example.scareme.data.network.signIn
 
 data class UserData(
     val email : String,

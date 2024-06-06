@@ -1,7 +1,8 @@
-package com.example.scareme.signInScreen.data
+package com.example.scareme.data.network.signIn
 
 
-import com.example.scareme.signInScreen.network.SignInApiService
+import com.example.scareme.signUpScreen.data.AppContainer
+import com.example.scareme.signUpScreen.data.SignUpRepository
 import okhttp3.OkHttpClient
 import okhttp3.OkHttpClient.Builder
 import okhttp3.logging.HttpLoggingInterceptor
@@ -12,7 +13,7 @@ interface AppContainer2 {
     val signInRepository : SignInRepository
 }
 
-class DefaultAppContainer : AppContainer2 {
+class DefaultAppContainer : AppContainer2, AppContainer {
 
 
     val BASE_URL = " http://itindr.mcenter.pro:8092/api/mobile/v1/"
@@ -31,4 +32,6 @@ class DefaultAppContainer : AppContainer2 {
     override val signInRepository: SignInRepository by lazy {
         NetworkSignInRepository(retrofitService)
     }
+    override val signUpRepository: SignUpRepository
+        get() = TODO("Not yet implemented")
 }

@@ -1,8 +1,8 @@
 package com.example.scareme
 
 import android.app.Application
-import com.example.scareme.signInScreen.data.AppContainer2
-import com.example.scareme.signUpScreen.data.DefaultAppContainer
+import com.example.scareme.data.network.signIn.AppContainer2
+import com.example.scareme.data.network.signIn.DefaultAppContainer
 import com.example.scareme.signUpScreen.data.AppContainer
 
 class ScareMeApplication : Application() {

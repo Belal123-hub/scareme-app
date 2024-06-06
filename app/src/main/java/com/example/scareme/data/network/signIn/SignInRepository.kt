@@ -1,6 +1,4 @@
-package com.example.scareme.signInScreen.data
-
-import com.example.scareme.signInScreen.network.SignInApiService
+package com.example.scareme.data.network.signIn
 
 
 interface  SignInRepository{

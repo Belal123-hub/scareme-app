@@ -1,4 +1,4 @@
-package com.example.scareme.signUpScreen.presentation
+package com.example.scareme.presentation.signUp
 
 
 import androidx.compose.foundation.background
