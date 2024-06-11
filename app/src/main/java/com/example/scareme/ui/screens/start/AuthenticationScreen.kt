@@ -57,7 +57,6 @@ fun StartScreen(){
 
             ScareMeButton("Sign Up")
 
-            Spacer(modifier = Modifier.height(24.dp))
 
             Text(
                 text = "Already have an account?",
@@ -68,7 +67,7 @@ fun StartScreen(){
                 color = Color(0xFFB14623)
             )
 
-            Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = Modifier.height(15.dp))
 
             Text(
                 text = "Sign In",
