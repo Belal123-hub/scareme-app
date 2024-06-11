@@ -14,7 +14,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.tooling.preview.Preview
-
+import com.example.scareme.ui.screens.common.ScareMeButton
 
 
 @Composable
@@ -45,7 +45,7 @@ fun SignInScreen() {
             InputField(label = "Password")
 
             Spacer(modifier = Modifier.height(300.dp))
-            SignInButton()
+           ScareMeButton("Sign In")
         }
     }
 }
@@ -71,23 +71,23 @@ fun InputField(label: String) {
     )
 }
 
-@Composable
-fun SignInButton() {
-    Button(
-        onClick = {},
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(56.dp)
-
-        ,
-           colors = ButtonDefaults.buttonColors(
-            containerColor = Color(0xFFFFA500)
-        ),
-        shape = RoundedCornerShape(15.dp)
-    ) {
-        Text(text = "Sign In", fontSize = 18.sp, color = Color.Black)
-    }
-}
+//@Composable
+//fun SignInButton() {
+//    Button(
+//        onClick = {},
+//        modifier = Modifier
+//            .fillMaxWidth()
+//            .height(56.dp)
+//
+//        ,
+//           colors = ButtonDefaults.buttonColors(
+//            containerColor = Color(0xFFFFA500)
+//        ),
+//        shape = RoundedCornerShape(15.dp)
+//    ) {
+//        Text(text = "Sign In", fontSize = 18.sp, color = Color.Black)
+//    }
+//}
 
 @Preview(showBackground = true)
 @Composable

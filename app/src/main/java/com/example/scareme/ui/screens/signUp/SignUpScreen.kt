@@ -14,7 +14,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.tooling.preview.Preview
-
+import com.example.scareme.ui.screens.common.ScareMeButton
 
 
 @Composable
@@ -46,7 +46,7 @@ fun SignUpScreen() {
             Spacer(modifier = Modifier.height(8.dp))
             InputField(label = "Repeat Password")
             Spacer(modifier = Modifier.height(300.dp))
-            SignUpButton()
+            ScareMeButton( "Sign Up")
         }
     }
 }
@@ -72,23 +72,7 @@ fun InputField(label: String) {
     )
 }
 
-@Composable
-fun SignUpButton() {
-    Button(
-        onClick = {},
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(56.dp)
 
-        ,
-           colors = ButtonDefaults.buttonColors(
-            containerColor = Color(0xFFFFA500)
-        ),
-        shape = RoundedCornerShape(15.dp)
-    ) {
-        Text(text = "Sign Up", fontSize = 18.sp, color = Color.Black)
-    }
-}
 
 @Preview(showBackground = true)
 @Composable

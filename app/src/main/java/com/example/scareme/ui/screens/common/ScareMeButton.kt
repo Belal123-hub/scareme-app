@@ -13,7 +13,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun ScareMeButton() {
+fun ScareMeButton(name:String) {
     Button(
         onClick = {},
         modifier = Modifier
@@ -26,6 +26,6 @@ fun ScareMeButton() {
         ),
         shape = RoundedCornerShape(15.dp)
     ) {
-        Text(text = "Sign In", fontSize = 18.sp, color = Color.Black)
+        Text(text = name, fontSize = 18.sp, color = Color.Black)
     }
 }

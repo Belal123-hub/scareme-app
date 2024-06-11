@@ -6,10 +6,8 @@ import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.AP
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.scareme.ScareMeApplication
-import com.example.scareme.data.network.signIn.SignInRepository
 
 class SignInViewModel(
-   private val signInRepository: SignInRepository
 ) : ViewModel(){
 
 }
