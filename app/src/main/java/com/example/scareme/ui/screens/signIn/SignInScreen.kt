@@ -71,24 +71,6 @@ fun InputField(label: String) {
     )
 }
 
-//@Composable
-//fun SignInButton() {
-//    Button(
-//        onClick = {},
-//        modifier = Modifier
-//            .fillMaxWidth()
-//            .height(56.dp)
-//
-//        ,
-//           colors = ButtonDefaults.buttonColors(
-//            containerColor = Color(0xFFFFA500)
-//        ),
-//        shape = RoundedCornerShape(15.dp)
-//    ) {
-//        Text(text = "Sign In", fontSize = 18.sp, color = Color.Black)
-//    }
-//}
-
 @Preview(showBackground = true)
 @Composable
 fun SignUpScreenPreview() {
