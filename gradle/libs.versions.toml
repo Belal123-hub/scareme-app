@@ -14,6 +14,9 @@ jetbrainsKotlinJvm = "1.9.0"
 koin-compose = "3.2.0"
 nav-compose = "2.7.7"
 navigationRuntimeKtx = "2.7.7"
+datastoreCoreAndroid = "1.1.1"
+datastore = "1.0.0"
+
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -39,6 +42,10 @@ koin-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = 
 #Navigation
 nav-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "nav-compose" }
 androidx-navigation-runtime-ktx = { group = "androidx.navigation", name = "navigation-runtime-ktx", version.ref = "navigationRuntimeKtx" }
+androidx-datastore-core-android = { group = "androidx.datastore", name = "datastore-core-android", version.ref = "datastoreCoreAndroid" }
+
+#Datastore
+datastore = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastore" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
