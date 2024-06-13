@@ -42,15 +42,11 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@Composable
-fun greeting(){
-    Text(text = "hifsdgfgf")
-}
 
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
     ScareMeTheme {
-        greeting()
+
     }
 }

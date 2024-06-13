@@ -1,7 +1,7 @@
 package com.example.scareme
 
 import android.app.Application
-import com.example.scareme.di.viewModelModule
+import com.example.scareme.di.appComponent
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -16,7 +16,7 @@ class ScareMeApplication : Application() {
             // Reference Android context
             androidContext(this@ScareMeApplication)
             // Load modules
-             modules(listOf(viewModelModule))
+             modules(appComponent)
         }
     }
 

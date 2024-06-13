@@ -1,7 +1,6 @@
 package com.example.scareme.di
 
 
-import android.system.Os.bind
 import com.example.domain.auth.AuthRepository
 import com.example.domain.auth.AuthRepositoryImpl
 import org.koin.core.module.dsl.factoryOf
