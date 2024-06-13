@@ -25,7 +25,10 @@ import com.example.scareme.ui.common.ScareMeButton
 import com.example.scareme.ui.theme.ScareMeTheme
 
 @Composable
-fun StartScreen(){
+fun StartScreen(
+    onStartClick: () -> Unit,
+    onSignUpClick: () -> Unit
+){
 
     Box (
         modifier = Modifier
@@ -79,10 +82,10 @@ fun StartScreen(){
 }
 
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview2() {
-    ScareMeTheme {
-        StartScreen()
-    }
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun GreetingPreview2() {
+//    ScareMeTheme {
+//        StartScreen()
+//    }
+//}

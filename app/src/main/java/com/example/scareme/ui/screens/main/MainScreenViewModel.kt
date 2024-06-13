@@ -1,4 +1,7 @@
 package com.example.scareme.ui.screens.main
 
-class MainScreenViewModel {
+import androidx.lifecycle.ViewModel
+
+class MainScreenViewModel ():ViewModel(){
+
 }

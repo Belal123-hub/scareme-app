@@ -1,4 +1,6 @@
 package com.example.scareme.ui.screens.profile.profileInfo
 
-class ProfileInfoViewModel {
+import androidx.lifecycle.ViewModel
+
+class ProfileInfoViewModel():ViewModel() {
 }

@@ -1,4 +1,4 @@
-package com.blogspot.soyamr.domain.auth.usecase
+package com.example.domain.auth.useCase
 
 import com.example.domain.auth.AuthRepository
 
