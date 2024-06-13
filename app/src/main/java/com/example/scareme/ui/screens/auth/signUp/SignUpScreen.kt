@@ -1,4 +1,4 @@
-package com.example.scareme.ui.screens.signIn
+package com.example.scareme.ui.screens.auth.signUp
 
 
 import androidx.compose.foundation.background
@@ -14,11 +14,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.scareme.ui.screens.common.ScareMeButton
+import com.example.scareme.ui.common.ScareMeButton
 
 
 @Composable
-fun SignInScreen() {
+fun SignUpScreen() {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -33,7 +33,7 @@ fun SignInScreen() {
             Spacer(modifier = Modifier.height(104.dp))
 
             Text(
-                text = "Sign In",
+                text = "Sign Up",
                 fontSize = 36.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.White,
@@ -43,9 +43,10 @@ fun SignInScreen() {
             InputField(label = "E-mail")
             Spacer(modifier = Modifier.height(8.dp))
             InputField(label = "Password")
-
+            Spacer(modifier = Modifier.height(8.dp))
+            InputField(label = "Repeat Password")
             Spacer(modifier = Modifier.height(300.dp))
-           ScareMeButton("Sign In")
+            ScareMeButton( "Sign Up")
         }
     }
 }
@@ -71,8 +72,10 @@ fun InputField(label: String) {
     )
 }
 
+
+
 @Preview(showBackground = true)
 @Composable
 fun SignUpScreenPreview() {
-    SignInScreen()
+    SignUpScreen()
 }

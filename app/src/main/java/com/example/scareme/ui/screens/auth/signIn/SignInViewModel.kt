@@ -1,4 +1,4 @@
-package com.example.scareme.ui.screens.signIn
+package com.example.scareme.ui.screens.auth.signIn
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

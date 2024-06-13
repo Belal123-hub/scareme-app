@@ -1,4 +1,4 @@
-package com.example.scareme.ui.screens.launch
+package com.example.scareme.ui.screens.splash
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background

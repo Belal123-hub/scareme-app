@@ -1,4 +1,4 @@
-package com.example.scareme.ui.screens.common
+package com.example.scareme.ui.common
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
