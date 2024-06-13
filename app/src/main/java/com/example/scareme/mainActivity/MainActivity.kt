@@ -1,4 +1,4 @@
-package com.example.scareme
+package com.example.scareme.mainActivity
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -22,6 +22,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
+
                 }
             }
         }

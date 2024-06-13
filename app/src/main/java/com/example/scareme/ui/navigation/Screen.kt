@@ -1,6 +1,8 @@
 package com.example.scareme.ui.navigation
 
 enum class Screen {
-    HOME,
-    LOGIN,
+    START,
+    SIGN_IN,
+    SIGN_UP,
+    Main
 }

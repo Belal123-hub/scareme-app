@@ -1,6 +1,8 @@
 package com.example.scareme.ui.navigation
 
 sealed class NavigationItem(val route: String) {
-    data object Home : NavigationItem(Screen.HOME.name)
-    data object Login : NavigationItem(Screen.LOGIN.name)
+    data object Start : NavigationItem(Screen.START.name)
+    data object SignIn : NavigationItem(Screen.SIGN_IN.name)
+    data object SignUp : NavigationItem(Screen.SIGN_UP.name)
+    data object Home : NavigationItem(Screen.Main.name)
 }
