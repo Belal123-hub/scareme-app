@@ -2,6 +2,7 @@ package com.example.scareme.ui.screens.auth.start
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -13,6 +14,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -27,7 +32,8 @@ import com.example.scareme.ui.theme.ScareMeTheme
 @Composable
 fun StartScreen(
     onStartClick: () -> Unit,
-    onSignUpClick: () -> Unit
+    onSignUpClick: () -> Unit,
+
 ){
 
     Box (
@@ -37,6 +43,7 @@ fun StartScreen(
         contentAlignment = Alignment.Center
 
     ) {
+        var enabled by rememberSaveable{ mutableStateOf(true)}
 
         Column(
             modifier = Modifier.padding(16.dp)
@@ -71,6 +78,10 @@ fun StartScreen(
             Text(
                 text = "Sign In",
                 modifier = Modifier.fillMaxWidth()
+                    .clickable(enabled = enabled) {
+                        enabled = false
+                        onStartClick()
+                    }
                 // .padding(top = 140.dp)
                 ,
                 textAlign = TextAlign.Center,
