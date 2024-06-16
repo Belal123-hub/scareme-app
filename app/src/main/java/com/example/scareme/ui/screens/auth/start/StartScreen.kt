@@ -54,14 +54,14 @@ fun StartScreen(
 
             Spacer(modifier = Modifier.height(300.dp))
 
-            ScareMeButton("Sign Up")
+            ScareMeButton("Sign Up",onSignUpClick)
 
 
             Text(
                 text = "Already have an account?",
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = 130.dp),
+                    .padding(top = 50.dp),
                 textAlign = TextAlign.Center,
                 color = Color(0xFFB14623)
             )
@@ -82,10 +82,10 @@ fun StartScreen(
 }
 
 
-//@Preview(showBackground = true)
-//@Composable
-//fun GreetingPreview2() {
-//    ScareMeTheme {
-//        StartScreen()
-//    }
-//}
+@Preview(showBackground = true)
+@Composable
+fun GreetingPreview2() {
+    ScareMeTheme {
+        StartScreen(onStartClick = {}, onSignUpClick = {})
+    }
+}

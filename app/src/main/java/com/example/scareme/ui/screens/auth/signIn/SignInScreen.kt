@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.scareme.ui.common.ScareMeButton
+import com.example.scareme.ui.theme.screensColor
 
 
 @Composable
@@ -45,7 +46,7 @@ fun SignInScreen() {
             InputField(label = "Password")
 
             Spacer(modifier = Modifier.height(300.dp))
-           ScareMeButton("Sign In")
+           //ScareMeButton("Sign In")
         }
     }
 }

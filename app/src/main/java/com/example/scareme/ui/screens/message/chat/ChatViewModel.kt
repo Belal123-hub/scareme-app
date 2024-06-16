@@ -1,4 +1,6 @@
 package com.example.scareme.ui.screens.message.chat
 
-class ChatViewModel {
+import androidx.lifecycle.ViewModel
+
+class ChatViewModel ():ViewModel(){
 }

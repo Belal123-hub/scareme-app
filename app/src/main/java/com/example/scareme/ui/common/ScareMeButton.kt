@@ -13,9 +13,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun ScareMeButton(name:String) {
+fun ScareMeButton(name:String, onClick: () -> Unit) {
     Button(
-        onClick = {},
+        onClick = onClick,
         modifier = Modifier
             .fillMaxWidth()
             .height(56.dp)

@@ -46,7 +46,7 @@ fun SignUpScreen() {
             Spacer(modifier = Modifier.height(8.dp))
             InputField(label = "Repeat Password")
             Spacer(modifier = Modifier.height(300.dp))
-            ScareMeButton( "Sign Up")
+           // ScareMeButton( "Sign Up")
         }
     }
 }
