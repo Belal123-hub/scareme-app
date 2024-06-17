@@ -9,16 +9,21 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.scareme.R
 import com.example.scareme.ui.common.ScareMeButton
+import com.example.scareme.ui.common.ScareMeTextField
 
 
 @Composable
-fun SignUpScreen() {
+fun SignUpScreen(
+    onSignUpClick:()->Unit
+) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -33,49 +38,30 @@ fun SignUpScreen() {
             Spacer(modifier = Modifier.height(104.dp))
 
             Text(
-                text = "Sign Up",
+                text = stringResource(R.string.sign_up_text),
                 fontSize = 36.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.White,
                 textAlign = TextAlign.Start
             )
             Spacer(modifier = Modifier.height(5.dp))
-            InputField(label = "E-mail")
+            ScareMeTextField(label = stringResource(R.string.e_mail))
             Spacer(modifier = Modifier.height(8.dp))
-            InputField(label = "Password")
+            ScareMeTextField(label = stringResource(R.string.password))
             Spacer(modifier = Modifier.height(8.dp))
-            InputField(label = "Repeat Password")
+            ScareMeTextField(label = stringResource(R.string.repeat_password))
             Spacer(modifier = Modifier.height(300.dp))
-           // ScareMeButton( "Sign Up")
+           ScareMeButton(stringResource(R.string.sign_up),onSignUpClick)
         }
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun InputField(label: String) {
-    OutlinedTextField(
-        value = "",
-        onValueChange = {},
-        label = { Text(text = label, color = Color.White) },
-        modifier = Modifier
-            .fillMaxWidth()
-            .background(Color(0xFF3A003A), shape = RoundedCornerShape(8.dp)),
-        colors = TextFieldDefaults.outlinedTextFieldColors(
-            focusedBorderColor = Color.Transparent,
-            unfocusedBorderColor = Color.Transparent,
-           // textColor = Color.White,
-            cursorColor = Color.White,
-            focusedLabelColor = Color.White,
-            unfocusedLabelColor = Color.White
-        )
-    )
-}
+
 
 
 
 @Preview(showBackground = true)
 @Composable
 fun SignUpScreenPreview() {
-    SignUpScreen()
+    SignUpScreen(onSignUpClick={})
 }

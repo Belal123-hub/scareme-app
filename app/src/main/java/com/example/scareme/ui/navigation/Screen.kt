@@ -4,5 +4,9 @@ enum class Screen {
     START,
     SIGN_IN,
     SIGN_UP,
-    Main
+    Main,
+    ProfileEdit,
+    ProfileInfo,
+    ChatList,
+    Chat
 }

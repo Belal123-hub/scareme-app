@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.scareme.R
@@ -27,14 +28,16 @@ fun LaunchScreen(){
     )
 
     Column (
-        modifier=Modifier.fillMaxSize()
-            .background( Brush.linearGradient(listColors))
+        modifier= Modifier
+            .fillMaxSize()
+            .background(Brush.linearGradient(listColors))
     ){
 
         Image(
             painter = painterResource(R.drawable.group_5),
-            contentDescription = "null",
-            modifier=Modifier.offset(50.dp,150.dp)
+            contentDescription = stringResource(R.string.scareMe_backgorund),
+            modifier= Modifier
+                .offset(50.dp, 150.dp)
                 .width(277.dp)
                 .height(250.dp),
            // contentScale = ContentScale.FillBounds
@@ -44,7 +47,7 @@ fun LaunchScreen(){
 
         Image(
             painter = painterResource(R.drawable.scareme),
-            contentDescription = "null",
+            contentDescription = stringResource(R.string.scareMe),
             modifier=Modifier.fillMaxSize(),
             // contentScale = ContentScale.FillBounds
         )

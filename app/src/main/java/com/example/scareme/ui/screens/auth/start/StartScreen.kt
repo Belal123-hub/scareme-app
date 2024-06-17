@@ -22,6 +22,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -52,7 +53,7 @@ fun StartScreen(
 
             Image(
                 painter = painterResource(R.drawable.scareme),
-                contentDescription = "null",
+                contentDescription = stringResource(R.string.scareMe),
                 modifier = Modifier
                     .size(250.dp)
                     .offset(70.dp, 200.dp),
@@ -61,11 +62,11 @@ fun StartScreen(
 
             Spacer(modifier = Modifier.height(300.dp))
 
-            ScareMeButton("Sign Up",onSignUpClick)
+            ScareMeButton(stringResource(R.string.to_sign_up),onSignUpClick)
 
 
             Text(
-                text = "Already have an account?",
+                text = stringResource(R.string.already_have_an_account),
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 50.dp),
@@ -76,8 +77,9 @@ fun StartScreen(
             Spacer(modifier = Modifier.height(15.dp))
 
             Text(
-                text = "Sign In",
-                modifier = Modifier.fillMaxWidth()
+                text = stringResource(R.string.to_sign_in),
+                modifier = Modifier
+                    .fillMaxWidth()
                     .clickable(enabled = enabled) {
                         enabled = false
                         onStartClick()

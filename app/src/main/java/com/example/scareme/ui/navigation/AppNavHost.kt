@@ -9,6 +9,10 @@ import com.example.scareme.ui.screens.auth.signIn.SignInScreen
 import com.example.scareme.ui.screens.auth.signUp.SignUpScreen
 import com.example.scareme.ui.screens.auth.start.StartScreen
 import com.example.scareme.ui.screens.main.MainScreen
+import com.example.scareme.ui.screens.message.chat.ChatScreen
+import com.example.scareme.ui.screens.message.chatList.ChatListScreen
+import com.example.scareme.ui.screens.profile.profileEdit.ProfileEditScreen
+import com.example.scareme.ui.screens.profile.profileInfo.ProfileInfoScreen
 
 @Composable
 fun AppNavHost(
@@ -21,20 +25,46 @@ fun AppNavHost(
         navController = navController,
         startDestination = startDestination.route
     ) {
-        composable(NavigationItem.Home.route) {
-            MainScreen()
-        }
-        composable(NavigationItem.SignIn.route) {
-            SignInScreen()
-        }
-        composable(NavigationItem.SignUp.route) {
-            SignUpScreen()
-        }
         composable(NavigationItem.Start.route) {
             StartScreen(
                 onStartClick = { navController.navigate(NavigationItem.SignIn.route) },
                 onSignUpClick = { navController.navigate(NavigationItem.SignUp.route) }
             )
         }
+
+        composable(NavigationItem.SignUp.route) {
+            SignUpScreen(
+                onSignUpClick={navController.navigate(NavigationItem.ProfileEdit.route)}
+            )
+        }
+
+        composable(NavigationItem.ProfileEdit.route) {
+            ProfileEditScreen(
+                onSaveButton = {navController.navigate(NavigationItem.Home.route)}
+            )
+        }
+
+        composable(NavigationItem.SignIn.route) {
+            SignInScreen(
+                onSignInClick = {navController.navigate(NavigationItem.Home.route)}
+            )
+        }
+
+        composable(NavigationItem.Home.route) {
+            MainScreen()
+        }
+
+        composable(NavigationItem.ProfileInfo.route){
+            ProfileInfoScreen()
+        }
+
+        composable(NavigationItem.ChatList.route){
+            ChatListScreen()
+        }
+
+        composable(NavigationItem.Chat.route){
+            ChatScreen()
+        }
+        
     }
 }
