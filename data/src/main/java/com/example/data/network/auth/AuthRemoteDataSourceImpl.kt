@@ -1,7 +1,7 @@
-package com.example.data.network
+package com.example.data.network.auth
 
-import com.example.data.network.AuthApi
-import com.example.data.network.model.AuthRequest
+import com.example.data.network.auth.AuthApi
+import com.example.data.network.auth.model.AuthRequest
 import com.example.domain.auth.dataSource.AuthRemoteDataSource
 import com.example.domain.auth.dataSource.model.AccessToken
 

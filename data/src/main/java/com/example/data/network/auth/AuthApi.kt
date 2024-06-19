@@ -1,7 +1,7 @@
-package com.example.data.network
+package com.example.data.network.auth
 
 import com.blogspot.soyamr.data.network.auth.model.AuthResponse
-import com.example.data.network.model.AuthRequest
+import com.example.data.network.auth.model.AuthRequest
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.POST
