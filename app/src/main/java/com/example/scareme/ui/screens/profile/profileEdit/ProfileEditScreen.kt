@@ -58,9 +58,9 @@ fun ProfileEditScreen(
 
             )
             Spacer(modifier = Modifier.height(5.dp))
-            ScareMeTextField(label = stringResource(R.string.user_name))
+           // ScareMeTextField(label = stringResource(R.string.user_name))
             Spacer(modifier = Modifier.height(8.dp))
-            ScareMeTextField(label = stringResource(R.string.about_user))
+           // ScareMeTextField(label = stringResource(R.string.about_user))
 
             Spacer(modifier = Modifier.height(200.dp))
             ScareMeButton(stringResource(R.string.save),onSaveButton)

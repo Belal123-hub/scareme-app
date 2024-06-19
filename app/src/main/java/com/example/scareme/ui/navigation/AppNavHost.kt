@@ -34,10 +34,11 @@ fun AppNavHost(
 
         composable(NavigationItem.SignUp.route) {
             SignUpScreen(
-                onSignUpClick={navController.navigate(NavigationItem.ProfileEdit.route)}
+                onSignUpClick = { _, _ ->
+                    navController.navigate(NavigationItem.ProfileEdit.route)
+                }
             )
         }
-
         composable(NavigationItem.ProfileEdit.route) {
             ProfileEditScreen(
                 onSaveButton = {navController.navigate(NavigationItem.Home.route)}
@@ -46,7 +47,9 @@ fun AppNavHost(
 
         composable(NavigationItem.SignIn.route) {
             SignInScreen(
-                onSignInClick = {navController.navigate(NavigationItem.Home.route)}
+               onSignInClick = { _, _ ->
+                   navController.navigate(NavigationItem.Home.route)
+               }
             )
         }
 

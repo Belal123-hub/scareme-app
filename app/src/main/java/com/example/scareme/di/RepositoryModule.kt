@@ -2,6 +2,7 @@ package com.example.scareme.di
 
 
 import com.example.domain.accessToken.AccessTokenRepository
+import com.example.domain.accessToken.AccessTokenRepositoryImpl
 import com.example.domain.auth.AuthRepository
 import com.example.domain.auth.AuthRepositoryImpl
 import org.koin.core.module.dsl.factoryOf
