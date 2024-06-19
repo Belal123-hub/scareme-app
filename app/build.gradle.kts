@@ -79,4 +79,12 @@ dependencies {
     implementation(libs.koin.compose)
     // Navigation
     implementation(libs.nav.compose)
+    // okhttp
+    implementation(libs.okhttp)
+    // kotlin serialization
+    implementation(libs.kotlin.serialization)
+    // retrofit
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.serialization)
+    implementation(libs.logging.interceptor)
 }

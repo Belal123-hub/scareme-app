@@ -44,4 +44,11 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     // datastore
     implementation(libs.datastore)
+    // kotlin serialization
+    implementation(libs.kotlin.serialization)
+    // retrofit
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.serialization)
+    implementation(libs.okhttp)
+    implementation(libs.logging.interceptor)
 }
