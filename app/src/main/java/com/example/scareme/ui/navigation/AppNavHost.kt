@@ -65,6 +65,5 @@ fun AppNavHost(
         composable(NavigationItem.Chat.route){
             ChatScreen()
         }
-        
     }
 }
