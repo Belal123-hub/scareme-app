@@ -3,8 +3,6 @@ package com.example.scareme.di
 
 import com.example.domain.auth.useCase.IsUserSignedInUseCase
 import com.example.domain.auth.useCase.IsUserSignedInUseCaseImpl
-import com.example.domain.auth.useCase.SetIsUserSignedInUseCase
-import com.example.domain.auth.useCase.SetIsUserSignedInUseCaseImpl
 import com.example.domain.auth.useCase.SignInUseCase
 import com.example.domain.auth.useCase.SignInUseCaseImpl
 import com.example.domain.auth.useCase.SignOutUseCase
@@ -20,5 +18,4 @@ val useCaseModule = module {
     factoryOf(::SignInUseCaseImpl) { bind<SignInUseCase>() }
     factoryOf(::SignUpUseCaseImpl) { bind<SignUpUseCase>() }
     factoryOf(::SignOutUseCaseImpl) { bind<SignOutUseCase>() }
-    factoryOf(::SetIsUserSignedInUseCaseImpl) { bind<SetIsUserSignedInUseCase>() }
 }

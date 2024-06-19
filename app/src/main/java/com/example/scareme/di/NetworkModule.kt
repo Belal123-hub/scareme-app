@@ -1,14 +1,24 @@
 package com.example.scareme.di
 
+import com.example.data.network.auth.AuthApi
+import com.example.data.network.common.Network
 import com.example.domain.auth.dataSource.AuthRemoteDataSource
-import com.example.domain.auth.dataSource.AuthRemoteDataSourceImpl
 import org.koin.core.module.dsl.bind
 import org.koin.core.module.dsl.factoryOf
+import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
 
 val networkModule = module {
-
-    // Provide AuthRemoteDataSource
-    factoryOf(::AuthRemoteDataSourceImpl) { bind<AuthRemoteDataSource>() }
-
+    factory { Network.okHttpCache }
+    single { Network.appJson }
+    factoryOf(Network::getJsonFactory)
+    factoryOf(Network::getLoggingInterceptor)
+    factoryOf(Network::getHeadersInterceptor)
+    factoryOf(Network::getRefreshTokenAuthenticator)
+    factoryOf(Network::getStatusCodeInterceptor)
+    singleOf(Network::getHttpClient)
+    singleOf(Network::getRetrofit)
+    // apis
+    single<AuthApi> { Network.getApi(get()) }
+    //single<ProfileApi> { Network.getApi(get()) }
 }
