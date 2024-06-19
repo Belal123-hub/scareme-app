@@ -2,6 +2,7 @@ package com.example.scareme.di
 
 import com.example.data.network.auth.AuthApi
 import com.example.data.network.common.Network
+import com.example.data.network.profile.ProfileApi
 import com.example.domain.auth.dataSource.AuthRemoteDataSource
 import org.koin.core.module.dsl.bind
 import org.koin.core.module.dsl.factoryOf
@@ -20,5 +21,5 @@ val networkModule = module {
     singleOf(Network::getRetrofit)
     // apis
     single<AuthApi> { Network.getApi(get()) }
-    //single<ProfileApi> { Network.getApi(get()) }
+    single<ProfileApi> { Network.getApi(get()) }
 }
