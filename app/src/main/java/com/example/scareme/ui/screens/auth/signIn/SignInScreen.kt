@@ -74,8 +74,10 @@ fun SignInContent(
 }
 
 
-//@Preview(showBackground = true)
-//@Composable
-//fun SignUpScreenPreview() {
-//    SignInScreen()
-//}
+@Preview(showBackground = true)
+@Composable
+fun SignUpScreenPreview() {
+    SignInScreen(
+        onSignInClick = { _, _ ->}
+    )
+}

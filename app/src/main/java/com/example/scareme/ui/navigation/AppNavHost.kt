@@ -41,7 +41,7 @@ fun AppNavHost(
         }
         composable(NavigationItem.ProfileEdit.route) {
             ProfileEditScreen(
-                onSaveButton = {navController.navigate(NavigationItem.Home.route)}
+               // onSaveButton = {navController.navigate(NavigationItem.Home.route)}
             )
         }
 

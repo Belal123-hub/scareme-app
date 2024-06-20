@@ -63,6 +63,7 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     implementation(project(":domain"))
+    implementation(libs.androidx.material3.android)
     testImplementation(libs.junit)
     implementation(libs.androidx.navigation.runtime.ktx)
     androidTestImplementation(libs.androidx.junit)

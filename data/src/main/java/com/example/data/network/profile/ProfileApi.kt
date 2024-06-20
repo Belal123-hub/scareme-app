@@ -1,6 +1,6 @@
 package com.example.data.network.profile
 
-import com.blogspot.soyamr.data.network.profile.model.TopicResponse
+import com.example.data.network.profile.model.TopicResponse
 import retrofit2.http.GET
 
 interface ProfileApi {
