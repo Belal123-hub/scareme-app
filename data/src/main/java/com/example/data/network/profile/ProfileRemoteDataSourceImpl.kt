@@ -1,7 +1,9 @@
 package com.example.data.network.profile
 
+import com.example.data.network.profile.model.UpdateProfileRequestDto
 import com.example.domain.profile.ProfileRemoteDataSource
 import com.example.domain.profile.model.Topic
+import com.example.domain.profile.model.UpdateProfileRequest
 
 class ProfileRemoteDataSourceImpl(
     private val profileApi: ProfileApi,
@@ -14,5 +16,14 @@ class ProfileRemoteDataSourceImpl(
                 title = topic.title
             )
         }
+    }
+
+    override suspend fun updateProfile(request: UpdateProfileRequest) {
+        val dto = UpdateProfileRequestDto(
+            name = request.name,
+            aboutMyself = request.aboutMyself,
+            topics = request.topics
+        )
+         profileApi.updateProfile(dto)
     }
 }

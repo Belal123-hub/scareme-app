@@ -31,10 +31,10 @@ fun Topic(
         modifier = Modifier
             .padding(8.dp)
             .clip(RoundedCornerShape(8.dp))
-            .background(if (isSelected) Color.Gray else Color.Red)
+            .background(if (isSelected) Color(0xFF1E001E) else Color(0xFFFFA500))
             .clickable { onTopicClick.invoke(id) },
         text = title,
-        color = if (isSelected)  Color(0xFFFF7F27) else Color.Black,
+        color = if (isSelected)  Color(0xFFFFA500) else Color.Black,
     )
 }
 }
