@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class ProfileEditViewModel(
-    private val signOutUseCase: SignOutUseCase,
+  //  private val signOutUseCase: SignOutUseCase,
     private val getAllTopicsUseCase: GetAllTopicsUseCase
 ):ViewModel() {
     private val _topics = MutableStateFlow(emptyList<TopicUi>())
@@ -46,11 +46,11 @@ class ProfileEditViewModel(
         }
     }
 
-    fun signOut() {
-        viewModelScope.launch {
-            runCatching { signOutUseCase() }
-                .onFailure { throwable -> println("Error: ${throwable.message}") }
-                .onSuccess { println("Success") }
-        }
-    }
+//    fun signOut() {
+//        viewModelScope.launch {
+//            runCatching { signOutUseCase() }
+//                .onFailure { throwable -> println("Error: ${throwable.message}") }
+//                .onSuccess { println("Success") }
+//        }
+//    }
 }

@@ -1,4 +1,4 @@
-package com.blogspot.soyamr.data.network.auth.model
+package com.example.data.network.auth.model
 
 import kotlinx.serialization.Serializable
 

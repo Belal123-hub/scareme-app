@@ -1,7 +1,10 @@
 package com.example.scareme.ui.screens.profile.profileEdit.component
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
@@ -18,6 +21,12 @@ fun Topic(
     isSelected: Boolean,
     onTopicClick: (String) -> Unit
 ) {
+    Box (
+       modifier = Modifier
+           .background(Color(0xFF180c14))
+            .padding(horizontal = 4.dp, vertical = 4.dp)
+           .border(BorderStroke(2.dp, Color(0xFFFF7F27)), shape = RoundedCornerShape(18.dp))
+   ){
     Text(
         modifier = Modifier
             .padding(8.dp)
@@ -25,6 +34,7 @@ fun Topic(
             .background(if (isSelected) Color.Gray else Color.Red)
             .clickable { onTopicClick.invoke(id) },
         text = title,
-        color = if (isSelected) Color.Red else Color.Black,
+        color = if (isSelected)  Color(0xFFFF7F27) else Color.Black,
     )
+}
 }

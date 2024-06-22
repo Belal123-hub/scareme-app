@@ -27,8 +27,8 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             val isUserSignedIn by viewModel.isUserSignedIn.collectAsState(initial = false)
-            val startDestination = if (isUserSignedIn) NavigationItem.Home else NavigationItem.Start
-            //val startDestination =NavigationItem.Start
+            //val startDestination = if (isUserSignedIn) NavigationItem.Home else NavigationItem.Start
+            val startDestination =NavigationItem.Start
                 ScareMeTheme {
                 // A surface container using the 'background' color from the theme
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->

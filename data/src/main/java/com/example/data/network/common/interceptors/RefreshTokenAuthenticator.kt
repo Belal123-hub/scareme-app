@@ -89,7 +89,7 @@ class RefreshTokenAuthenticator(
         val okHttpClient = createOkHttpClient()
         val mediaType = "application/json; charset=utf-8".toMediaTypeOrNull()
         val request = Request.Builder()
-            .url("$apiUrl/$REFRESH_PATH")
+            .url("$apiUrl$REFRESH_PATH")
             .post(serializer.encodeToString(TokenRequest.serializer(), refreshToken).toRequestBody(mediaType))
             .build()
         val response = okHttpClient.newCall(request).await()
@@ -123,6 +123,6 @@ class RefreshTokenAuthenticator(
     }
 
     private companion object {
-        const val REFRESH_PATH = "/v1/auth/refresh"
+        const val REFRESH_PATH = "v1/auth/refresh"
     }
 }

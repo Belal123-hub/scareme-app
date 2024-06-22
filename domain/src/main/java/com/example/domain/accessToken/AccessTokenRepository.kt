@@ -8,6 +8,8 @@ interface AccessTokenRepository {
     suspend fun setAccessToken(accessToken: String?)
     suspend fun getRefreshToken(): String?
     suspend fun setRefreshToken(refreshToken: String?)
+    suspend fun hasAccessToken(): Boolean
+
 }
 
 class AccessTokenRepositoryImpl(
@@ -20,4 +22,6 @@ class AccessTokenRepositoryImpl(
     override suspend fun getRefreshToken() = dataStoreDataSource.getRefreshToken()
 
     override suspend fun setRefreshToken(refreshToken: String?) = dataStoreDataSource.setRefreshToken(refreshToken)
+    override suspend fun hasAccessToken() = getAccessToken() != null
+
 }

@@ -34,7 +34,7 @@ fun AppNavHost(
 
         composable(NavigationItem.SignUp.route) {
             SignUpScreen(
-                onSignUpClick = { _, _ ->
+                onSignUpSuccess = {
                     navController.navigate(NavigationItem.ProfileEdit.route)
                 }
             )
@@ -47,7 +47,7 @@ fun AppNavHost(
 
         composable(NavigationItem.SignIn.route) {
             SignInScreen(
-               onSignInClick = { _, _ ->
+                onSignInSuccess = {
                    navController.navigate(NavigationItem.Home.route)
                }
             )
