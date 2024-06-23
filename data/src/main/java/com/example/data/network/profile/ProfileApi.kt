@@ -1,5 +1,6 @@
 package com.example.data.network.profile
 
+import com.example.data.network.profile.model.ProfileResponse
 import com.example.data.network.profile.model.TopicResponse
 import com.example.data.network.profile.model.UpdateProfileRequestDto
 import retrofit2.http.Body
@@ -13,4 +14,6 @@ interface ProfileApi {
     suspend fun getAllTopics(): List<TopicResponse>
     @PATCH("v1/profile")
     suspend fun updateProfile(@Body request: UpdateProfileRequestDto)
+    @GET("v1/profile")
+    suspend fun getProfile(): ProfileResponse
 }

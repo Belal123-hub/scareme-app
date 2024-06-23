@@ -1,5 +1,6 @@
 package com.example.scareme.ui.screens.profile.profileEdit
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -20,6 +21,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -28,6 +30,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -38,17 +41,35 @@ import com.example.scareme.ui.common.ScareMeButton
 import com.example.scareme.ui.common.ScareMeTextField
 import com.example.scareme.ui.screens.profile.profileEdit.component.Topic
 import com.example.scareme.ui.screens.profile.profileEdit.model.TopicUi
+import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun ProfileEditScreen(
+    onSignInSuccess:()->Unit,
     viewModel: ProfileEditViewModel = koinViewModel()
 ) {
     var name by remember { mutableStateOf("") }
     var about by remember { mutableStateOf("") }
 
     val topics by viewModel.topics.collectAsState()
-    val updateStatus by viewModel.updateStatus.collectAsState()
+  //  val updateStatus by viewModel.updateStatus.collectAsState()
+
+    val context = LocalContext.current
+
+    LaunchedEffect(key1 = Unit) {
+        launch {
+            viewModel.showError.collect { error ->
+                Toast.makeText(context, error, Toast.LENGTH_LONG).show()
+            }
+        }
+
+        launch {
+            viewModel.navigateToMain.collect {
+                onSignInSuccess()
+            }
+        }
+    }
 
     ProfileEditContent(
         name = name,
@@ -63,16 +84,7 @@ fun ProfileEditScreen(
         onTopicClick = viewModel::onTopicSelected
     )
 
-    // Display update status message
-    updateStatus?.let { result ->
-        if (result.isSuccess) {
-            // Show success message
-            // TODO: Add UI to show success message
-        } else {
-            // Show error message
-            // TODO: Add UI to show error message
-        }
-    }
+
 }
 
 @OptIn(ExperimentalLayoutApi::class, ExperimentalMaterial3Api::class)

@@ -11,11 +11,13 @@ import com.example.domain.auth.useCase.SignUpUseCase
 import com.example.domain.auth.useCase.SignUpUseCaseImpl
 import com.example.domain.profile.usecase.GetAllTopicsUseCase
 import com.example.domain.profile.usecase.GetAllTopicsUseCaseImpl
+import com.example.domain.profile.usecase.GetProfileUseCase
 import com.example.domain.profile.usecase.UpdateProfileUseCase
 import org.koin.core.module.dsl.bind
 import org.koin.core.module.dsl.factoryOf
 import org.koin.dsl.module
 import com.example.domain.profile.usecase.UpdateProfileUseCaseImpl
+import com.example.domain.profile.usecase.GetProfileUseCaseImpl
 val useCaseModule = module {
     factoryOf(::IsUserSignedInUseCaseImpl) { bind<IsUserSignedInUseCase>() }
     factoryOf(::SignInUseCaseImpl) { bind<SignInUseCase>() }
@@ -23,5 +25,6 @@ val useCaseModule = module {
     factoryOf(::SignOutUseCaseImpl) { bind<SignOutUseCase>() }
     factoryOf(::GetAllTopicsUseCaseImpl) { bind<GetAllTopicsUseCase>() }
     factoryOf(::UpdateProfileUseCaseImpl) { bind<UpdateProfileUseCase>() }
+    factoryOf(::GetProfileUseCaseImpl) { bind<GetProfileUseCase>() }
 
 }
