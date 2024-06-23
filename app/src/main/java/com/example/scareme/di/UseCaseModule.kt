@@ -18,6 +18,9 @@ import org.koin.core.module.dsl.factoryOf
 import org.koin.dsl.module
 import com.example.domain.profile.usecase.UpdateProfileUseCaseImpl
 import com.example.domain.profile.usecase.GetProfileUseCaseImpl
+import com.example.domain.users.usecase.GetAllUsersUseCase
+import com.example.domain.users.usecase.GetAllUsersUseCaseImpl
+
 val useCaseModule = module {
     factoryOf(::IsUserSignedInUseCaseImpl) { bind<IsUserSignedInUseCase>() }
     factoryOf(::SignInUseCaseImpl) { bind<SignInUseCase>() }
@@ -26,5 +29,6 @@ val useCaseModule = module {
     factoryOf(::GetAllTopicsUseCaseImpl) { bind<GetAllTopicsUseCase>() }
     factoryOf(::UpdateProfileUseCaseImpl) { bind<UpdateProfileUseCase>() }
     factoryOf(::GetProfileUseCaseImpl) { bind<GetProfileUseCase>() }
+    factoryOf(::GetAllUsersUseCaseImpl) { bind<GetAllUsersUseCase>() }
 
 }

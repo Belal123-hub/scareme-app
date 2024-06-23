@@ -88,4 +88,8 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.retrofit.serialization)
     implementation(libs.logging.interceptor)
+
+    // coil
+    implementation("io.coil-kt:coil-compose:2.4.0")
+
 }

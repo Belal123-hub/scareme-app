@@ -48,7 +48,7 @@ fun AppNavHost(
         composable(NavigationItem.SignIn.route) {
             SignInScreen(
                 onSignInSuccess = {
-                   navController.navigate(NavigationItem.ProfileInfo.route)
+                   navController.navigate(NavigationItem.Home.route)
                }
             )
         }
