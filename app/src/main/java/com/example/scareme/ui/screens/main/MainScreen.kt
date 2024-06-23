@@ -40,7 +40,7 @@ fun MainScreen(){
             Image(
                 painter = painterResource(
                     R.drawable.background),
-                contentDescription = stringResource(R.string.background_upper_main_screen),
+                contentDescription = stringResource(R.string.background_upper_screen),
                 modifier = Modifier
                     .fillMaxWidth()
                     .width(360.dp)

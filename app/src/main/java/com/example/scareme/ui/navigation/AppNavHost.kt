@@ -41,14 +41,14 @@ fun AppNavHost(
         }
         composable(NavigationItem.ProfileEdit.route) {
             ProfileEditScreen(
-                onSignInSuccess = {navController.navigate(NavigationItem.ProfileInfo.route)}
+                onSignInSuccess = {navController.navigate(NavigationItem.Home.route)}
             )
         }
 
         composable(NavigationItem.SignIn.route) {
             SignInScreen(
                 onSignInSuccess = {
-                   navController.navigate(NavigationItem.Home.route)
+                   navController.navigate(NavigationItem.ProfileInfo.route)
                }
             )
         }
