@@ -92,4 +92,9 @@ dependencies {
     // coil
     implementation("io.coil-kt:coil-compose:2.4.0")
 
+        // swipe cards
+    implementation ("com.alexstyl.swipeablecard:swipeablecard:0.1.0")
+    implementation ("com.google.accompanist:accompanist-systemuicontroller:0.26.1-alpha")
+
 }
+

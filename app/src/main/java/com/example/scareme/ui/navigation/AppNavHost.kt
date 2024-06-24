@@ -54,7 +54,9 @@ fun AppNavHost(
         }
 
         composable(NavigationItem.Home.route) {
-            MainScreen()
+            MainScreen(onClick={
+                navController.navigate(NavigationItem.Home.route)
+            })
         }
 
         composable(NavigationItem.ProfileInfo.route){
