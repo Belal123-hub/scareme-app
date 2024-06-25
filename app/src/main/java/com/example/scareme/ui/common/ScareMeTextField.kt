@@ -14,7 +14,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
+import com.example.scareme.R
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -27,7 +30,14 @@ fun ScareMeTextField(
     OutlinedTextField(
         value = text,
         onValueChange = onValueChange,
-        label = { Text(text = label, color = Color.White) },
+        label = {
+            Text(text = label,
+            color = Color.White,
+            fontFamily =
+        FontFamily(
+            Font(R.font.baloopaaaji)
+        )
+        ) },
         modifier = Modifier
             .fillMaxWidth()
             .background(Color(0xFF3A003A), shape = RoundedCornerShape(8.dp)),

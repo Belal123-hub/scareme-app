@@ -33,6 +33,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -116,7 +118,8 @@ fun ProfileEditContent(
                 text = stringResource(R.string.why_are_you_scary),
                 fontSize = 36.sp,
                 fontWeight = FontWeight.Bold,
-                color = Color.White
+                color = Color.White,
+                fontFamily = FontFamily(Font(R.font.baloopaaaji))
             )
             Image(
                 painter = painterResource(id = R.drawable.group_7),
@@ -149,6 +152,7 @@ fun ProfileEditContent(
                 fontSize = 36.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.White,
+                fontFamily = FontFamily(Font(R.font.baloopaaaji))
             )
 
             LazyColumn(

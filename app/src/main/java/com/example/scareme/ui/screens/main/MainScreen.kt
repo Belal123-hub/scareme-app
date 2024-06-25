@@ -4,11 +4,13 @@ import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Close
 import androidx.compose.material.icons.rounded.Favorite
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -19,10 +21,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -44,7 +49,6 @@ import org.koin.androidx.compose.koinViewModel
 fun MainScreen(
     viewModel: MainScreenViewModel = koinViewModel(),
     navController: NavController,
-    onClick: () -> Unit
 ) {
     val users by viewModel.users.collectAsState()
 
@@ -69,7 +73,7 @@ fun MainScreenContent(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(color = Color.Black)
+            .background(Color(0xFF1E001E))
             .padding(vertical = 23.dp, horizontal = 20.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
@@ -100,7 +104,8 @@ fun MainScreenContent(
                     modifier = Modifier
                         .align(Alignment.Start)
                         .offset(x = 21.dp, y = 47.dp)
-                        .padding(start = 12.dp, bottom = 12.dp)
+                        .padding(start = 12.dp, bottom = 12.dp),
+                    fontFamily = FontFamily(Font(R.font.baloopaaaji))
                 )
                 Spacer(modifier = Modifier.height(12.dp))
                 val scope = rememberCoroutineScope()
@@ -160,20 +165,19 @@ fun MainScreenContent(
                         .offset(y = 57.dp)
                         .fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.Center
+                    horizontalArrangement = Arrangement.SpaceEvenly
                 ) {
                     ProfileButton(
-                        icon = Icons.Rounded.Close,
-                        modifier = Modifier.size(77.dp),
+                        icon = painterResource(id = R.drawable.close),
                         onClick = {
                             scope.launch {
                                 states.lastOrNull { it.second.offset.value == Offset.Zero }?.second?.swipe(Direction.Left)
                             }
                         }
                     )
+                    Spacer(modifier = Modifier.width(20.dp)) // Add a spacer with a width of 20.dp
                     ProfileButton(
-                        icon = Icons.Rounded.Favorite,
-                        modifier = Modifier.size(77.dp),
+                        icon = painterResource(id = R.drawable.like),
                         onClick = {
                             scope.launch {
                                 states.lastOrNull { it.second.offset.value == Offset.Zero }?.second?.swipe(Direction.Right)
@@ -181,6 +185,7 @@ fun MainScreenContent(
                         }
                     )
                 }
+
             }
         }
 
@@ -218,7 +223,8 @@ fun ProfileCard(
                         color = Color.White,
                         fontSize = 22.sp,
                         fontWeight = FontWeight.Medium,
-                        modifier = Modifier.padding(10.dp)
+                        modifier = Modifier.padding(10.dp),
+                        fontFamily = FontFamily(Font(R.font.baloopaaaji))
                     )
                 }
             }
@@ -228,24 +234,17 @@ fun ProfileCard(
 
 @Composable
 fun ProfileButton(
-    icon: ImageVector,
+    icon: Painter,
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    IconButton(
-        onClick = { onClick() },
-        modifier = Modifier
-            .padding(horizontal = 14.dp)
-            .border(width = 2.dp, color = Color.White, shape = CircleShape)
+    Image(
+        painter = icon,
+        contentDescription = null,
+        modifier = modifier
+            .size(77.dp)
             .clip(CircleShape)
-            .background(color = Color.Black)
-            .then(modifier)
-    ) {
-        Icon(
-            imageVector = icon,
-            contentDescription = null,
-            tint = Color.White,
-            modifier = Modifier.size(30.dp)
-        )
-    }
+            .clickable(onClick = onClick)
+    )
 }
+

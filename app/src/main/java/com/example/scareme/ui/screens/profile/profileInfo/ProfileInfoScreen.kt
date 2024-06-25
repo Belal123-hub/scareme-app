@@ -35,54 +35,58 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.domain.profile.model.Profile
 import com.example.scareme.R
+import com.example.scareme.ui.navigation.BottomNavigationBar
 import com.example.scareme.ui.screens.profile.profileEdit.component.Topic
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun ProfileInfoScreen(viewModel: ProfileInfoViewModel=koinViewModel()){
+fun ProfileInfoScreen(viewModel: ProfileInfoViewModel=koinViewModel(),navController: NavController,){
     val profile by viewModel.profile.collectAsState()
 
-    profile?.let { ProfileInfoContent(profile = it) }
+    profile?.let { ProfileInfoContent(profile = it,navController) }
 
 }
 
 @Composable
-fun ProfileInfoContent(profile:Profile){
-    profile.let {
-
-        Column(
+fun ProfileInfoContent(
+    profile: Profile,
+    navController: NavController,
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color(0xFF1E001E))
+    ) {
+        Box(
             modifier = Modifier
-                .background(
-                    Color(0xFF1E001E),
-                    shape = RoundedCornerShape(4.dp)
-                )
-                .fillMaxSize()
-              //  .paint(painterResource(id = R.drawable.background))
-        ){
-            //Spacer(modifier = Modifier.height(20.dp))
+                .fillMaxWidth()
+                .height(344.dp)
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.background),
+                contentDescription = stringResource(R.string.background_upper_screen),
+                contentScale = ContentScale.Crop,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(344.dp)
+            )
+
             Column(
                 verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ){
-
-                Image(
-                    painter = painterResource(
-                        R.drawable.background),
-                    contentDescription = stringResource(R.string.background_upper_screen),
-                    contentScale = ContentScale.Crop,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(344.dp)
-                )
-
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.padding(start = 96.dp, end = 64.dp, top = 99.dp) // Add padding to the start and end
+            ) {
                 AsyncImage(
                     model = ImageRequest.Builder(context = LocalContext.current)
                         .data(profile.avatar)
@@ -92,54 +96,69 @@ fun ProfileInfoContent(profile:Profile){
                     contentDescription = null,
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
-                        .size(300.dp)
-                        .clip(CircleShape)
-                        // .align(Alignment.Center)
-                        .offset(y = 50.dp)
+                        .size(168.dp) // Increase the size to make the image larger
+                        .clip(CircleShape) // Clip the image to a circle shape
+                        .border( // Add a border to make the circle complete
+                            width = 2.dp,
+                            color = Color.White,
+                            shape = CircleShape
+                        )
                 )
-
                 Spacer(modifier = Modifier.height(20.dp))
                 Text(
-                    text = it.name,
-                    modifier= Modifier
-                        .padding(start = 130.dp)
-                        .padding(top = 277.dp),
+                    text = profile.name,
                     textAlign = TextAlign.Center,
                     color = Color.White,
-                    fontWeight = FontWeight.Bold,
-                    style = MaterialTheme.typography.titleLarge
+                    fontWeight = FontWeight(400),
+                    style = MaterialTheme.typography.titleLarge,
+                    modifier = Modifier.size(36.dp),
+                    fontFamily = FontFamily(Font(R.font.baloopaaaji))
                 )
             }
+        }
 
-            LazyColumn(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(100.dp)
-            ) {
-                items(it.topics.chunked(3)) { rowTopics ->
-                    LazyRow(
-                        modifier = Modifier.fillMaxWidth(),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.SpaceEvenly
-                    ) {
-                        items(rowTopics) { topic ->
-                            Topic(title = topic.title)
-                            //Text(text =topic.title)
-                        }
+        Spacer(modifier = Modifier.height(20.dp))
+
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp)
+        ) {
+            items(profile.topics.chunked(3)) { rowTopics ->
+                LazyRow(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceEvenly
+                ) {
+                    items(rowTopics) { topic ->
+                        Topic(title = topic.title)
                     }
                 }
             }
-
-            Spacer(modifier = Modifier.height(20.dp))
-
-            Text(
-                text = it.aboutMyself,
-                color = Color.White
-                )
-
-
-
         }
+
+        Spacer(modifier = Modifier.height(20.dp))
+
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp, vertical = 16.dp)
+        ) {
+            Text(
+                text = profile.aboutMyself,
+                color = Color.White,
+                textAlign = TextAlign.Center,
+                fontWeight = FontWeight.Bold,
+                fontFamily = FontFamily(Font(R.font.baloopaaaji))
+            )
+        }
+    }
+    Column (
+        Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Bottom
+    ) {
+        BottomNavigationBar(navController = navController)
     }
 }
 
@@ -162,13 +181,14 @@ fun Topic(
             text = title,
             fontWeight = FontWeight.Bold,
             color =  Color.Black,
+            fontFamily = FontFamily(Font(R.font.baloopaaaji))
         )
     }
 }
 
 
-@Preview(showBackground = true)
-@Composable
-fun ProfileScreenPreview() {
-    ProfileInfoScreen()
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun ProfileScreenPreview() {
+//    ProfileInfoScreen()
+//}

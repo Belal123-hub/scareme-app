@@ -17,6 +17,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -76,7 +78,8 @@ fun SignInContent(
                 fontSize = 36.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.White,
-                textAlign = TextAlign.Start
+                textAlign = TextAlign.Start,
+                fontFamily = FontFamily(Font(R.font.baloopaaaji))
             )
             Spacer(modifier = Modifier.height(5.dp))
             ScareMeTextField(label = stringResource(R.string.e_mail), text = email, onValueChange ={email=it} )

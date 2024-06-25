@@ -64,14 +64,11 @@ fun AppNavHost(
         composable(NavigationItem.Home.route) {
             MainScreen(
                 navController = navController,
-                onClick = {
-                    navController.navigate(NavigationItem.Home.route)
-                }
             )
         }
 
         composable(NavigationItem.ProfileInfo.route) {
-            ProfileInfoScreen()
+            ProfileInfoScreen(navController = navController)
         }
 
         composable(NavigationItem.ChatList.route) {

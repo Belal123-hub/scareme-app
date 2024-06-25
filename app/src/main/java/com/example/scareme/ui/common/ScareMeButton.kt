@@ -9,8 +9,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.scareme.R
 
 @Composable
 fun ScareMeButton(name:String, onClick: () -> Unit) {
@@ -26,6 +29,8 @@ fun ScareMeButton(name:String, onClick: () -> Unit) {
         ),
         shape = RoundedCornerShape(15.dp)
     ) {
-        Text(text = name, fontSize = 18.sp, color = Color.Black)
+        Text(text = name, fontSize = 18.sp, color = Color.Black,fontFamily = FontFamily(
+            Font(R.font.baloopaaaji))
+        )
     }
 }
