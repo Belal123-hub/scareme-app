@@ -1,5 +1,7 @@
 package com.example.scareme.ui.navigation
 
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
@@ -13,6 +15,7 @@ import com.example.scareme.ui.screens.message.chat.ChatScreen
 import com.example.scareme.ui.screens.message.chatList.ChatListScreen
 import com.example.scareme.ui.screens.profile.profileEdit.ProfileEditScreen
 import com.example.scareme.ui.screens.profile.profileInfo.ProfileInfoScreen
+import com.example.scareme.ui.screens.splash.LaunchScreen
 
 @Composable
 fun AppNavHost(
@@ -25,6 +28,10 @@ fun AppNavHost(
         navController = navController,
         startDestination = startDestination.route
     ) {
+        composable(NavigationItem.Splash.route) {
+            LaunchScreen(navController)
+        }
+
         composable(NavigationItem.Start.route) {
             StartScreen(
                 onStartClick = { navController.navigate(NavigationItem.SignIn.route) },
@@ -56,10 +63,11 @@ fun AppNavHost(
 
         composable(NavigationItem.Home.route) {
             MainScreen(
-                navController = navController
-            ) {
-                navController.navigate(NavigationItem.Home.route)
-            }
+                navController = navController,
+                onClick = {
+                    navController.navigate(NavigationItem.Home.route)
+                }
+            )
         }
 
         composable(NavigationItem.ProfileInfo.route) {
@@ -75,7 +83,3 @@ fun AppNavHost(
         }
     }
 }
-
-
-
-

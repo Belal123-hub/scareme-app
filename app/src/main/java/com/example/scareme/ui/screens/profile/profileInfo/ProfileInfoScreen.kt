@@ -29,6 +29,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.paint
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -64,10 +65,12 @@ fun ProfileInfoContent(profile:Profile){
                     shape = RoundedCornerShape(4.dp)
                 )
                 .fillMaxSize()
+              //  .paint(painterResource(id = R.drawable.background))
         ){
-            Spacer(modifier = Modifier.height(20.dp))
-            Box(  modifier = Modifier
-                .fillMaxWidth()
+            //Spacer(modifier = Modifier.height(20.dp))
+            Column(
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
             ){
 
                 Image(
@@ -79,15 +82,7 @@ fun ProfileInfoContent(profile:Profile){
                         .fillMaxWidth()
                         .height(344.dp)
                 )
-               /* Image(
-                    painter = painterResource(
-                        R.drawable.ellipse_20),
-                    contentDescription = stringResource(R.string.background_upper_screen),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(150.dp)
-                        .offset(0.dp, 99.dp)
-                )*/
+
                 AsyncImage(
                     model = ImageRequest.Builder(context = LocalContext.current)
                         .data(profile.avatar)
@@ -97,9 +92,9 @@ fun ProfileInfoContent(profile:Profile){
                     contentDescription = null,
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
-                        .size(150.dp)
+                        .size(300.dp)
                         .clip(CircleShape)
-                        .align(Alignment.Center)
+                        // .align(Alignment.Center)
                         .offset(y = 50.dp)
                 )
 
