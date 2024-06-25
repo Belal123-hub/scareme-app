@@ -25,4 +25,12 @@ return userApi.getAllUsers().map { user->
 
     }
 
+    override suspend fun likeUser(userId: String) {
+        userApi.likeUser(userId)
+    }
+
+    override suspend fun dislikeUser(userId: String) {
+        userApi.dislikeUser(userId)
+    }
+
 }

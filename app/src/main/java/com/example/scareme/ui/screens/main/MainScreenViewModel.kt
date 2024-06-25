@@ -1,21 +1,26 @@
-// ui/screens/users/UsersViewModel.kt
 package com.example.scareme.ui.screens.main
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.domain.users.usecase.DislikeUserUseCase
 import com.example.domain.users.usecase.GetAllUsersUseCase
-import com.example.scareme.ui.screens.main.model.UserUi
+import com.example.domain.users.usecase.LikeUserUseCase
 import com.example.scareme.ui.screens.main.model.Topic
+import com.example.scareme.ui.screens.main.model.UserUi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class MainScreenViewModel(
-    private val getAllUsersUseCase: GetAllUsersUseCase
+    private val getAllUsersUseCase: GetAllUsersUseCase,
+    private val likeUserUseCase: LikeUserUseCase,
+    private val dislikeUserUseCase: DislikeUserUseCase
 ) : ViewModel() {
     private val _users = MutableStateFlow(emptyList<UserUi>())
     val users = _users.asStateFlow()
 
+    private val _isRequestInProgress = MutableStateFlow(false)
+    val isRequestInProgress=_isRequestInProgress
     init {
         fetchAllUsers()
     }
@@ -40,6 +45,34 @@ class MainScreenViewModel(
                         )
                     }
                 }
+        }
+    }
+
+    fun likeUser(userId: String) {
+        if (_isRequestInProgress.value) return
+
+        viewModelScope.launch {
+            _isRequestInProgress.value = true
+            runCatching { likeUserUseCase(userId) }
+                .onFailure { throwable -> println("Error: ${throwable.message}") }
+                .onSuccess {
+                    println("Liked user: $userId")
+                }
+            _isRequestInProgress.value = false
+        }
+    }
+
+    fun dislikeUser(userId: String) {
+        if (_isRequestInProgress.value) return
+
+        viewModelScope.launch {
+            _isRequestInProgress.value = true
+            runCatching { dislikeUserUseCase(userId) }
+                .onFailure { throwable -> println("Error: ${throwable.message}") }
+                .onSuccess {
+                    println("Disliked user: $userId")
+                }
+            _isRequestInProgress.value = false
         }
     }
 }

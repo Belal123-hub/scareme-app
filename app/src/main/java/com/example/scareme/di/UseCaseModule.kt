@@ -18,8 +18,12 @@ import org.koin.core.module.dsl.factoryOf
 import org.koin.dsl.module
 import com.example.domain.profile.usecase.UpdateProfileUseCaseImpl
 import com.example.domain.profile.usecase.GetProfileUseCaseImpl
+import com.example.domain.users.usecase.DislikeUserUseCase
+import com.example.domain.users.usecase.DislikeUserUseCaseImpl
 import com.example.domain.users.usecase.GetAllUsersUseCase
 import com.example.domain.users.usecase.GetAllUsersUseCaseImpl
+import com.example.domain.users.usecase.LikeUserUseCase
+import com.example.domain.users.usecase.LikeUserUseCaseImpl
 
 val useCaseModule = module {
     factoryOf(::IsUserSignedInUseCaseImpl) { bind<IsUserSignedInUseCase>() }
@@ -30,5 +34,6 @@ val useCaseModule = module {
     factoryOf(::UpdateProfileUseCaseImpl) { bind<UpdateProfileUseCase>() }
     factoryOf(::GetProfileUseCaseImpl) { bind<GetProfileUseCase>() }
     factoryOf(::GetAllUsersUseCaseImpl) { bind<GetAllUsersUseCase>() }
-
+    factoryOf(::LikeUserUseCaseImpl) { bind<LikeUserUseCase>() }
+    factoryOf(::DislikeUserUseCaseImpl) { bind<DislikeUserUseCase>() }
 }

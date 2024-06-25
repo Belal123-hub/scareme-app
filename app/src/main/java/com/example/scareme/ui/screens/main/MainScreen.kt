@@ -14,7 +14,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -35,7 +34,7 @@ import com.alexstyl.swipeablecard.rememberSwipeableCardState
 import com.alexstyl.swipeablecard.swipableCard
 import com.example.scareme.R
 import com.example.scareme.ui.screens.main.model.UserUi
-import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import com.example.scareme.ui.screens.main.model.profiles
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 
@@ -53,101 +52,133 @@ fun MainScreen(
     )
 }
 
+
 @OptIn(ExperimentalSwipeableCardApi::class)
 @Composable
 fun MainScreenContent(
-    userInformation: List<UserUi>,
     viewModel: MainScreenViewModel,
-    modifier: Modifier
+    userInformation: List<UserUi>,
+    modifier: Modifier = Modifier
 ) {
-    var currentIndex by rememberSaveable { mutableStateOf(0) }
+    var currentIndex by remember { mutableStateOf(0) }
     val user = userInformation.getOrNull(currentIndex)
 
-    TransparentSystemBars()
-    Box(
+    Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.Black)
-            .systemBarsPadding()
+            .background(color = Color.Black)
+            .padding(vertical = 23.dp, horizontal = 20.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
     ) {
-        Image(
+        val states = userInformation.map { rememberSwipeableCardState() }
+
+        Box(
             modifier = Modifier
-                .fillMaxWidth()
-                .size(width = 400.dp, height = 370.dp),
-            painter = painterResource(id = R.drawable.background),
-            contentDescription = null
-        )
-
-        val scope = rememberCoroutineScope()
-        user?.let {
-            val state = rememberSwipeableCardState()
-            Box(
-                Modifier
-                    .padding(18.dp)
+                .fillMaxSize()
+        ) {
+            Image(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .size(width = 400.dp, height = 370.dp),
+                painter = painterResource(id = R.drawable.background),
+                contentDescription = null
+            )
+            Column(
+                modifier = Modifier
                     .fillMaxSize()
-                    .aspectRatio(1f)
-                    .align(Alignment.Center)
             ) {
-                ProfileCard(
+                Text(
+                    text = "Trick or Treat?",
+                    fontSize = 36.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color.White,
                     modifier = Modifier
-                        .fillMaxSize()
-                        .swipableCard(
-                            state = state,
-                            blockedDirections = listOf(Direction.Down),
-                            onSwiped = {
-                                currentIndex++
-                            },
-                            onSwipeCancel = {
-                                Log.d("Swipeable-Card", "Cancelled swipe")
-                            }
-                        ),
-                    name = user.name,
-                    avatar = user.avatar
+                        .align(Alignment.Start)
+                        .offset(x = 21.dp, y = 47.dp)
+                        .padding(start = 12.dp, bottom = 12.dp)
                 )
+                Spacer(modifier = Modifier.height(12.dp))
+                val scope = rememberCoroutineScope()
+                user?.let { currentUser ->
+                    val state = states[currentIndex]
+                    Box(
+                        modifier = Modifier
+                            .offset(y = 50.dp)
+                            .size(height = 508.dp, width = 318.dp)
+                            .align(Alignment.CenterHorizontally)
+                    ) {
+                        ProfileCard(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .swipableCard(
+                                    state = state,
+                                    blockedDirections = listOf(Direction.Down),
+                                    onSwiped = { direction ->
+                                        when (direction) {
+                                            Direction.Left -> viewModel.dislikeUser(currentUser.userId)
+                                            Direction.Right -> viewModel.likeUser(currentUser.userId)
+                                            Direction.Up -> TODO()
+                                            Direction.Down -> TODO()
+                                        }
+                                        currentIndex++
+                                    },
+                                    onSwipeCancel = {
+                                        Log.d("Swipeable-Card", "Cancelled swipe")
+                                    }
+                                ),
+                            name = currentUser.name,
+                            avatar = currentUser.avatar
+                        )
 
-                LaunchedEffect(state.swipedDirection) {
-                    if (state.swipedDirection != null) {
-                        // Handle swipe action here, e.g., send user ID to the API
-                        when (state.swipedDirection) {
-                            Direction.Left -> {
-                                // viewModel.likeUser(user.userId)
-                                // Send to dislike API
+                        LaunchedEffect(state.swipedDirection) {
+                            if (state.swipedDirection != null) {
+                                // Handle swipe action here, e.g., send user ID to the API
+                                currentIndex++
                             }
-                            Direction.Right -> {
-                                // viewModel.dislikeUser(user.userId)
-                                // Send to like API
-                            }
-                            else -> {}
                         }
-                        currentIndex++
                     }
+                }
+                Row(
+                    Modifier
+                        .padding(horizontal = 31.dp)
+                        .offset(y = 57.dp)
+                        .fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    CircleButton(
+                        onClick = {
+                            scope.launch {
+                                if (currentIndex < states.size) {
+                                    states[currentIndex].swipe(Direction.Left)
+                                    viewModel.dislikeUser(userInformation[currentIndex].userId)
+                                    currentIndex++
+                                }
+                            }
+                        },
+                        icon = Icons.Rounded.Close
+                    )
+                    CircleButton(
+                        onClick = {
+                            scope.launch {
+                                if (currentIndex < states.size) {
+                                    states[currentIndex].swipe(Direction.Right)
+                                   viewModel.likeUser(userInformation[currentIndex].userId)
+                                    currentIndex++
+                                }
+                            }
+                        },
+                        icon = Icons.Rounded.Favorite
+                    )
                 }
             }
         }
-
-        // Buttons for swiping programmatically
-        Row(
-            Modifier
-                .align(Alignment.BottomCenter)
-                .padding(horizontal = 24.dp, vertical = 32.dp)
-                .fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceEvenly
-        ) {
-            CircleButton(
-                onClick = {
-                    currentIndex++
-                },
-                icon = Icons.Rounded.Close
-            )
-            CircleButton(
-                onClick = {
-                    currentIndex++
-                },
-                icon = Icons.Rounded.Favorite
-            )
-        }
     }
 }
+
+
+
 
 @Composable
 fun CircleButton(
@@ -197,17 +228,4 @@ fun ProfileCard(
     }
 }
 
-@Composable
-fun TransparentSystemBars() {
-    val systemUiController = rememberSystemUiController()
-    val useDarkIcons = false
 
-    DisposableEffect(systemUiController, useDarkIcons) {
-        systemUiController.setSystemBarsColor(
-            color = Color.Transparent,
-            darkIcons = useDarkIcons,
-            isNavigationBarContrastEnforced = false
-        )
-        onDispose {}
-    }
-}
