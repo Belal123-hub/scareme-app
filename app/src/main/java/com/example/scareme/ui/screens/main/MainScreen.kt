@@ -26,6 +26,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.alexstyl.swipeablecard.Direction
@@ -33,6 +34,7 @@ import com.alexstyl.swipeablecard.ExperimentalSwipeableCardApi
 import com.alexstyl.swipeablecard.rememberSwipeableCardState
 import com.alexstyl.swipeablecard.swipableCard
 import com.example.scareme.R
+import com.example.scareme.ui.navigation.BottomNavigationBar
 import com.example.scareme.ui.screens.main.model.UserUi
 import com.example.scareme.ui.screens.main.model.profiles
 import kotlinx.coroutines.launch
@@ -40,28 +42,29 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun MainScreen(
-    onClick: () -> Unit,
-    viewModel: MainScreenViewModel = koinViewModel()
+    viewModel: MainScreenViewModel = koinViewModel(),
+    navController: NavController,
+    onClick: () -> Unit
 ) {
     val users by viewModel.users.collectAsState()
 
     MainScreenContent(
         userInformation = users,
         viewModel = viewModel,
+        navController = navController,
         modifier = Modifier.fillMaxWidth()
     )
 }
-
 
 @OptIn(ExperimentalSwipeableCardApi::class)
 @Composable
 fun MainScreenContent(
     viewModel: MainScreenViewModel,
     userInformation: List<UserUi>,
+    navController: NavController,
     modifier: Modifier = Modifier
 ) {
-    var currentIndex by remember { mutableStateOf(0) }
-    val user = userInformation.getOrNull(currentIndex)
+    val user = userInformation.firstOrNull()
 
     Column(
         modifier = Modifier
@@ -71,7 +74,8 @@ fun MainScreenContent(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        val states = userInformation.map { rememberSwipeableCardState() }
+        val states = profiles.reversed()
+            .map { it to rememberSwipeableCardState() }
 
         Box(
             modifier = Modifier
@@ -100,41 +104,52 @@ fun MainScreenContent(
                 )
                 Spacer(modifier = Modifier.height(12.dp))
                 val scope = rememberCoroutineScope()
-                user?.let { currentUser ->
-                    val state = states[currentIndex]
+                user?.let {
                     Box(
                         modifier = Modifier
                             .offset(y = 50.dp)
                             .size(height = 508.dp, width = 318.dp)
                             .align(Alignment.CenterHorizontally)
                     ) {
-                        ProfileCard(
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .swipableCard(
-                                    state = state,
-                                    blockedDirections = listOf(Direction.Down),
-                                    onSwiped = { direction ->
-                                        when (direction) {
-                                            Direction.Left -> viewModel.dislikeUser(currentUser.userId)
-                                            Direction.Right -> viewModel.likeUser(currentUser.userId)
-                                            Direction.Up -> TODO()
-                                            Direction.Down -> TODO()
-                                        }
-                                        currentIndex++
-                                    },
-                                    onSwipeCancel = {
-                                        Log.d("Swipeable-Card", "Cancelled swipe")
-                                    }
-                                ),
-                            name = currentUser.name,
-                            avatar = currentUser.avatar
-                        )
+                        states.forEach { (it, state) ->
+                            if (state.swipedDirection == null) {
 
-                        LaunchedEffect(state.swipedDirection) {
-                            if (state.swipedDirection != null) {
-                                // Handle swipe action here, e.g., send user ID to the API
-                                currentIndex++
+                                    ProfileCard(
+                                        modifier = Modifier
+                                            .fillMaxSize()
+                                            .swipableCard(
+                                                state = state,
+                                                blockedDirections = listOf(Direction.Down),
+                                                onSwiped = {
+                                                    // Handle swipes
+                                                },
+                                                onSwipeCancel = {
+                                                    Log.d("Swipeable-Card", "Cancelled swipe")
+                                                }
+                                            ),
+                                        name = user.name ,
+                                        avatar = user.avatar
+                                    )
+
+                            }
+
+                            LaunchedEffect(it, state.swipedDirection) {
+                                if (state.swipedDirection != null) {
+                                    // Handle swipe action here, e.g., send user ID to the API
+                                    when (state.swipedDirection) {
+                                        Direction.Left -> {
+                                            viewModel.dislikeUser(user.userId)
+                                            // Send to dislike API
+                                        }
+
+                                        Direction.Right -> {
+                                             viewModel.likeUser(user.userId)
+                                            // Send to like API
+                                        }
+
+                                        else -> {}
+                                    }
+                                }
                             }
                         }
                     }
@@ -145,69 +160,52 @@ fun MainScreenContent(
                         .offset(y = 57.dp)
                         .fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceBetween
+                    horizontalArrangement = Arrangement.Center
                 ) {
-                    CircleButton(
+                    ProfileButton(
+                        icon = Icons.Rounded.Close,
+                        modifier = Modifier.size(77.dp),
                         onClick = {
                             scope.launch {
-                                if (currentIndex < states.size) {
-                                    states[currentIndex].swipe(Direction.Left)
-                                    viewModel.dislikeUser(userInformation[currentIndex].userId)
-                                    currentIndex++
-                                }
+                                states.lastOrNull { it.second.offset.value == Offset.Zero }?.second?.swipe(Direction.Left)
                             }
-                        },
-                        icon = Icons.Rounded.Close
+                        }
                     )
-                    CircleButton(
+                    ProfileButton(
+                        icon = Icons.Rounded.Favorite,
+                        modifier = Modifier.size(77.dp),
                         onClick = {
                             scope.launch {
-                                if (currentIndex < states.size) {
-                                    states[currentIndex].swipe(Direction.Right)
-                                   viewModel.likeUser(userInformation[currentIndex].userId)
-                                    currentIndex++
-                                }
+                                states.lastOrNull { it.second.offset.value == Offset.Zero }?.second?.swipe(Direction.Right)
                             }
-                        },
-                        icon = Icons.Rounded.Favorite
+                        }
                     )
                 }
             }
         }
+
     }
-}
-
-
-
-
-@Composable
-fun CircleButton(
-    onClick: () -> Unit,
-    icon: ImageVector,
-) {
-    IconButton(
-        modifier = Modifier
-            .clip(CircleShape)
-            .background(Color.Red)
-            .size(56.dp)
-            .border(2.dp, Color.Black, CircleShape),
-        onClick = onClick
+    Column (
+        Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Bottom
     ) {
-        Icon(icon, null, tint = Color.Black)
+        BottomNavigationBar(navController = navController)
     }
+
 }
 
 @Composable
 fun ProfileCard(
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
     name: String?,
-    avatar: String?,
+    avatar: String?
 ) {
     Card(modifier) {
         Box {
             AsyncImage(
                 model = ImageRequest.Builder(context = LocalContext.current).data(avatar)
                     .crossfade(true).build(),
+                //error = painterResource(R.drawable.ic_broken_image),
                 placeholder = painterResource(R.drawable.group_7),
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
@@ -228,4 +226,26 @@ fun ProfileCard(
     }
 }
 
-
+@Composable
+fun ProfileButton(
+    icon: ImageVector,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    IconButton(
+        onClick = { onClick() },
+        modifier = Modifier
+            .padding(horizontal = 14.dp)
+            .border(width = 2.dp, color = Color.White, shape = CircleShape)
+            .clip(CircleShape)
+            .background(color = Color.Black)
+            .then(modifier)
+    ) {
+        Icon(
+            imageVector = icon,
+            contentDescription = null,
+            tint = Color.White,
+            modifier = Modifier.size(30.dp)
+        )
+    }
+}

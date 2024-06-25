@@ -14,10 +14,12 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -29,12 +31,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
+import coil.request.ImageRequest
 import com.example.domain.profile.model.Profile
 import com.example.scareme.R
 import com.example.scareme.ui.screens.profile.profileEdit.component.Topic
@@ -61,7 +66,10 @@ fun ProfileInfoContent(profile:Profile){
                 .fillMaxSize()
         ){
             Spacer(modifier = Modifier.height(20.dp))
-            Box(){
+            Box(  modifier = Modifier
+                .fillMaxWidth()
+            ){
+
                 Image(
                     painter = painterResource(
                         R.drawable.background),
@@ -71,7 +79,7 @@ fun ProfileInfoContent(profile:Profile){
                         .fillMaxWidth()
                         .height(344.dp)
                 )
-                Image(
+               /* Image(
                     painter = painterResource(
                         R.drawable.ellipse_20),
                     contentDescription = stringResource(R.string.background_upper_screen),
@@ -79,7 +87,22 @@ fun ProfileInfoContent(profile:Profile){
                         .fillMaxWidth()
                         .height(150.dp)
                         .offset(0.dp, 99.dp)
+                )*/
+                AsyncImage(
+                    model = ImageRequest.Builder(context = LocalContext.current)
+                        .data(profile.avatar)
+                        .crossfade(true)
+                        .build(),
+                    placeholder = painterResource(R.drawable.group_7),
+                    contentDescription = null,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                        .size(150.dp)
+                        .clip(CircleShape)
+                        .align(Alignment.Center)
+                        .offset(y = 50.dp)
                 )
+
                 Spacer(modifier = Modifier.height(20.dp))
                 Text(
                     text = it.name,

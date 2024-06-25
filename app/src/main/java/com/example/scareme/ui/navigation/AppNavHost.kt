@@ -39,36 +39,43 @@ fun AppNavHost(
                 }
             )
         }
+
         composable(NavigationItem.ProfileEdit.route) {
             ProfileEditScreen(
-                onSignInSuccess = {navController.navigate(NavigationItem.Home.route)}
+                onSignInSuccess = { navController.navigate(NavigationItem.Home.route) }
             )
         }
 
         composable(NavigationItem.SignIn.route) {
             SignInScreen(
                 onSignInSuccess = {
-                   navController.navigate(NavigationItem.Home.route)
-               }
+                    navController.navigate(NavigationItem.Home.route)
+                }
             )
         }
 
         composable(NavigationItem.Home.route) {
-            MainScreen(onClick={
+            MainScreen(
+                navController = navController
+            ) {
                 navController.navigate(NavigationItem.Home.route)
-            })
+            }
         }
 
-        composable(NavigationItem.ProfileInfo.route){
+        composable(NavigationItem.ProfileInfo.route) {
             ProfileInfoScreen()
         }
 
-        composable(NavigationItem.ChatList.route){
+        composable(NavigationItem.ChatList.route) {
             ChatListScreen()
         }
 
-        composable(NavigationItem.Chat.route){
+        composable(NavigationItem.Chat.route) {
             ChatScreen()
         }
     }
 }
+
+
+
+

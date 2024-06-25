@@ -58,6 +58,7 @@ class MainScreenViewModel(
                 .onSuccess {
                     println("Liked user: $userId")
                 }
+            fetchAllUsers()
             _isRequestInProgress.value = false
         }
     }
@@ -72,6 +73,7 @@ class MainScreenViewModel(
                 .onSuccess {
                     println("Disliked user: $userId")
                 }
+            fetchAllUsers()
             _isRequestInProgress.value = false
         }
     }
