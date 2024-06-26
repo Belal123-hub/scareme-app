@@ -72,7 +72,7 @@ fun AppNavHost(
         }
 
         composable(NavigationItem.ChatList.route) {
-            ChatListScreen()
+            ChatListScreen(navController = navController)
         }
 
         composable(NavigationItem.Chat.route) {

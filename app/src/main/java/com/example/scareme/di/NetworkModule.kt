@@ -1,6 +1,7 @@
 package com.example.scareme.di
 
 import com.example.data.network.auth.AuthApi
+import com.example.data.network.chat.ChatApi
 import com.example.data.network.common.Network
 import com.example.data.network.profile.ProfileApi
 import com.example.data.network.users.UserApi
@@ -24,4 +25,6 @@ val networkModule = module {
     single<AuthApi> { Network.getApi(get()) }
     single<ProfileApi> { Network.getApi(get()) }
     single<UserApi> { Network.getApi(get()) }
+    single<ChatApi> { Network.getApi(get()) }
+
 }

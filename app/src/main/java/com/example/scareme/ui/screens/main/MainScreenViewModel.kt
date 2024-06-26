@@ -20,7 +20,11 @@ class MainScreenViewModel(
     val users = _users.asStateFlow()
 
     private val _isRequestInProgress = MutableStateFlow(false)
-    val isRequestInProgress=_isRequestInProgress
+    val isRequestInProgress = _isRequestInProgress
+
+    // Map to store the liked state of users
+    private val likedUsersMap = mutableMapOf<String, Boolean>()
+
     init {
         fetchAllUsers()
     }
@@ -41,7 +45,8 @@ class MainScreenViewModel(
                                     id = topic.id,
                                     title = topic.title
                                 )
-                            }
+                            },
+                            isLiked = likedUsersMap[user.userId] ?: false  // Use the map to get the liked state
                         )
                     }
                 }
@@ -57,6 +62,8 @@ class MainScreenViewModel(
                 .onFailure { throwable -> println("Error: ${throwable.message}") }
                 .onSuccess {
                     println("Liked user: $userId")
+                    likedUsersMap[userId] = true
+                   // fetchAllUsers()
                 }
             fetchAllUsers()
             _isRequestInProgress.value = false
@@ -72,6 +79,8 @@ class MainScreenViewModel(
                 .onFailure { throwable -> println("Error: ${throwable.message}") }
                 .onSuccess {
                     println("Disliked user: $userId")
+                    likedUsersMap[userId] = false
+                    //fetchAllUsers()
                 }
             fetchAllUsers()
             _isRequestInProgress.value = false

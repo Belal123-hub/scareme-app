@@ -5,5 +5,6 @@ data class UserUi(
     val name: String?,
     val aboutMyself: String?,
     val avatar: String?,
-    val topics: List<Topic>?
+    val topics: List<Topic>?,
+    val isLiked: Boolean = false  // Add this property
 )

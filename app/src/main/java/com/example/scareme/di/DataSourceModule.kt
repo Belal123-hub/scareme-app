@@ -11,10 +11,14 @@ import org.koin.core.module.dsl.bind
 import org.koin.core.module.dsl.factoryOf
 import org.koin.dsl.module
 import com.example.data.network.users.UserRemoteDataSourceImpl
+import com.example.domain.chat.ChatRemoteDataSource
+import com.example.data.network.chat.ChatRemoteDataSourceImpl
 
 val dataSourceModule = module {
     factoryOf(::DataStoreDataSourceImpl) { bind<DataStoreDataSource>() }
     factoryOf(::AuthRemoteDataSourceImpl) { bind<AuthRemoteDataSource>()}
     factoryOf(::ProfileRemoteDataSourceImpl) { bind<ProfileRemoteDataSource>()}
     factoryOf(::UserRemoteDataSourceImpl) { bind<UserRemoteDataSource>() }
+    factoryOf(::ChatRemoteDataSourceImpl) { bind<ChatRemoteDataSource>() }
+
 }

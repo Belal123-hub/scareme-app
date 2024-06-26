@@ -3,8 +3,10 @@ package com.example.scareme.ui.screens.auth.start
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -47,6 +49,8 @@ fun StartScreen(
 
     ) {
         var enabled by rememberSaveable{ mutableStateOf(true)}
+
+        ImageLayout()
 
         Column(
             modifier = Modifier.padding(16.dp)
@@ -97,6 +101,88 @@ fun StartScreen(
     }
 }
 
+@Composable
+fun ImageLayout() {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.Black),
+        contentAlignment = Alignment.Center
+    ) {
+        Column(
+            modifier = Modifier.padding(16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.ellipse_20),
+                    contentDescription = "Image 1",
+                    modifier = Modifier
+                        .size(100.dp)
+                        .padding(4.dp)
+                )
+                Image(
+                    painter = painterResource(id = R.drawable.ellipse_18),
+                    contentDescription = "Image 2",
+                    modifier = Modifier
+                        .size(100.dp)
+                        .padding(4.dp)
+                )
+            }
+            Column(
+                modifier = Modifier.padding(16.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.ellipse_16),
+                        contentDescription = "Image 1",
+                        modifier = Modifier
+                            .size(100.dp)
+                            .padding(4.dp)
+                    )
+                    Image(
+                        painter = painterResource(id = R.drawable.ellipse_17),
+                        contentDescription = "Image 2",
+                        modifier = Modifier
+                            .size(100.dp)
+                            .padding(4.dp)
+                    )
+                }
+            }
+            Column(
+                modifier = Modifier.padding(16.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.ellipse_15),
+                        contentDescription = "Image 1",
+                        modifier = Modifier
+                            .size(100.dp)
+                            .padding(4.dp)
+                    )
+                    Image(
+                        painter = painterResource(id = R.drawable.ellipse_14),
+                        contentDescription = "Image 2",
+                        modifier = Modifier
+                            .size(100.dp)
+                            .padding(4.dp)
+                    )
+                }
+            }
+        }
+    }
+}
 
 @Preview(showBackground = true)
 @Composable

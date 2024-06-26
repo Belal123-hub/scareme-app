@@ -119,22 +119,22 @@ fun MainScreenContent(
                         states.forEach { (it, state) ->
                             if (state.swipedDirection == null) {
 
-                                    ProfileCard(
-                                        modifier = Modifier
-                                            .fillMaxSize()
-                                            .swipableCard(
-                                                state = state,
-                                                blockedDirections = listOf(Direction.Down),
-                                                onSwiped = {
-                                                    // Handle swipes
-                                                },
-                                                onSwipeCancel = {
-                                                    Log.d("Swipeable-Card", "Cancelled swipe")
-                                                }
-                                            ),
-                                        name = user.name ,
-                                        avatar = user.avatar
-                                    )
+                                ProfileCard(
+                                    modifier = Modifier
+                                        .fillMaxSize()
+                                        .swipableCard(
+                                            state = state,
+                                            blockedDirections = listOf(Direction.Down),
+                                            onSwiped = {
+                                                // Handle swipes
+                                            },
+                                            onSwipeCancel = {
+                                                Log.d("Swipeable-Card", "Cancelled swipe")
+                                            }
+                                        ),
+                                    name = user.name ,
+                                    avatar = user.avatar
+                                )
 
                             }
 
@@ -148,7 +148,7 @@ fun MainScreenContent(
                                         }
 
                                         Direction.Right -> {
-                                             viewModel.likeUser(user.userId)
+                                            viewModel.likeUser(user.userId)
                                             // Send to like API
                                         }
 
@@ -247,4 +247,3 @@ fun ProfileButton(
             .clickable(onClick = onClick)
     )
 }
-
