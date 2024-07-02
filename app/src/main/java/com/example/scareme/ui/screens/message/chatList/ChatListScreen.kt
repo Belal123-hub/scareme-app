@@ -31,7 +31,7 @@ import com.example.scareme.ui.theme.ScareMeTheme
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun ChatListScreen(viewModel: ChatListViewModel = koinViewModel(),navController: NavController) {
+fun ChatListScreen(viewModel: ChatListViewModel = koinViewModel()) {
     val chatList by viewModel.chatList.collectAsState()
     val likedUsers by viewModel.likedUsers.collectAsState()
 
@@ -49,12 +49,6 @@ fun ChatListScreen(viewModel: ChatListViewModel = koinViewModel(),navController:
         ProfileThumbnails(likedUsers)
         SectionHeader(title = "Messages")
         MessagePreviews(chatList)
-        Column (
-            Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.Bottom
-        ) {
-            BottomNavigationBar(navController = navController)
-        }
     }
 }
 

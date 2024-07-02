@@ -134,7 +134,7 @@ fun ProfileEditContent(
             OutlinedTextField(
                 value = about,
                 onValueChange = onAboutChange,
-                label = { Text(text = " label ", color = Color.White) },
+                label = { Text(text = " About ", color = Color.White) },
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(140.dp)
@@ -173,7 +173,7 @@ fun ProfileEditContent(
                 }
             }
 
-            Spacer(modifier = Modifier.height(200.dp))
+            Spacer(modifier = Modifier.height(120.dp))
             ScareMeButton(stringResource(R.string.save), onSaveButton)
         }
     }

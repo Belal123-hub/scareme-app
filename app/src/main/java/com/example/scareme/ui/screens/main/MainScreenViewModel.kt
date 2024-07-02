@@ -1,5 +1,6 @@
 package com.example.scareme.ui.screens.main
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.users.usecase.DislikeUserUseCase
@@ -49,6 +50,7 @@ class MainScreenViewModel(
                             isLiked = likedUsersMap[user.userId] ?: false  // Use the map to get the liked state
                         )
                     }
+                    Log.e("wrf", "size: ${_users.value.size}")
                 }
         }
     }
@@ -63,7 +65,7 @@ class MainScreenViewModel(
                 .onSuccess {
                     println("Liked user: $userId")
                     likedUsersMap[userId] = true
-                   // fetchAllUsers()
+                    // fetchAllUsers()
                 }
             fetchAllUsers()
             _isRequestInProgress.value = false

@@ -17,24 +17,30 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import com.example.scareme.R
 import com.example.scareme.ui.navigation.NavigationItem
 import com.example.scareme.ui.theme.ScareMeTheme
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun LaunchScreen(navController: NavHostController) {
+fun LaunchScreen(
+    viewModel: SplashViewModel = koinViewModel(),
+    navigateNext: (NavigationItem) -> Unit = {},
+) {
+    LaunchedEffect(key1 = Unit) {
+        launch {
+            viewModel.navigateToNextScreen.collect { navItem ->
+                navigateNext.invoke(navItem)
+            }
+        }
+    }
+
     val listColors = listOf(
         Color(android.graphics.Color.rgb(19, 9, 18)),
         Color(android.graphics.Color.rgb(62, 28, 51))
     )
-
-    LaunchedEffect(Unit) {
-        delay(2000L) // Delay for 2 seconds (2000 milliseconds)
-        navController.navigate(NavigationItem.Start.route)
-    }
 
     Column(
         modifier = Modifier
@@ -66,6 +72,6 @@ fun LaunchScreen(navController: NavHostController) {
 @Composable
 fun GreetingPreview() {
     ScareMeTheme {
-        LaunchScreen(navController = rememberNavController())
+        LaunchScreen()
     }
 }

@@ -3,26 +3,33 @@ package com.example.scareme.ui.screens.main
 import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.Close
-import androidx.compose.material.icons.rounded.Favorite
-import androidx.compose.material3.Button
 import androidx.compose.material3.Card
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -31,7 +38,6 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.alexstyl.swipeablecard.Direction
@@ -39,23 +45,19 @@ import com.alexstyl.swipeablecard.ExperimentalSwipeableCardApi
 import com.alexstyl.swipeablecard.rememberSwipeableCardState
 import com.alexstyl.swipeablecard.swipableCard
 import com.example.scareme.R
-import com.example.scareme.ui.navigation.BottomNavigationBar
 import com.example.scareme.ui.screens.main.model.UserUi
-import com.example.scareme.ui.screens.main.model.profiles
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun MainScreen(
     viewModel: MainScreenViewModel = koinViewModel(),
-    navController: NavController,
 ) {
     val users by viewModel.users.collectAsState()
 
     MainScreenContent(
         userInformation = users,
         viewModel = viewModel,
-        navController = navController,
         modifier = Modifier.fillMaxWidth()
     )
 }
@@ -65,20 +67,17 @@ fun MainScreen(
 fun MainScreenContent(
     viewModel: MainScreenViewModel,
     userInformation: List<UserUi>,
-    navController: NavController,
     modifier: Modifier = Modifier
 ) {
-    val user = userInformation.firstOrNull()
-
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .background(Color(0xFF1E001E))
             .padding(vertical = 23.dp, horizontal = 20.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        val states = profiles.reversed()
+        val states = userInformation.reversed()
             .map { it to rememberSwipeableCardState() }
 
         Box(
@@ -109,51 +108,49 @@ fun MainScreenContent(
                 )
                 Spacer(modifier = Modifier.height(12.dp))
                 val scope = rememberCoroutineScope()
-                user?.let {
-                    Box(
-                        modifier = Modifier
-                            .offset(y = 50.dp)
-                            .size(height = 508.dp, width = 318.dp)
-                            .align(Alignment.CenterHorizontally)
-                    ) {
-                        states.forEach { (it, state) ->
-                            if (state.swipedDirection == null) {
+                Box(
+                    modifier = Modifier
+                        .offset(y = 50.dp)
+                        .size(height = 508.dp, width = 318.dp)
+                        .align(Alignment.CenterHorizontally)
+                ) {
+                    states.forEach { (it, state) ->
+                        if (state.swipedDirection == null) {
 
-                                ProfileCard(
-                                    modifier = Modifier
-                                        .fillMaxSize()
-                                        .swipableCard(
-                                            state = state,
-                                            blockedDirections = listOf(Direction.Down),
-                                            onSwiped = {
-                                                // Handle swipes
-                                            },
-                                            onSwipeCancel = {
-                                                Log.d("Swipeable-Card", "Cancelled swipe")
-                                            }
-                                        ),
-                                    name = user.name ,
-                                    avatar = user.avatar
-                                )
-
-                            }
-
-                            LaunchedEffect(it, state.swipedDirection) {
-                                if (state.swipedDirection != null) {
-                                    // Handle swipe action here, e.g., send user ID to the API
-                                    when (state.swipedDirection) {
-                                        Direction.Left -> {
-                                            viewModel.dislikeUser(user.userId)
-                                            // Send to dislike API
+                            ProfileCard(
+                                modifier = Modifier
+                                    .fillMaxSize()
+                                    .swipableCard(
+                                        state = state,
+                                        blockedDirections = listOf(Direction.Down),
+                                        onSwiped = {
+                                            // Handle swipes
+                                        },
+                                        onSwipeCancel = {
+                                            Log.d("Swipeable-Card", "Cancelled swipe")
                                         }
+                                    ),
+                                name = it.name,
+                                avatar = it.avatar
+                            )
 
-                                        Direction.Right -> {
-                                            viewModel.likeUser(user.userId)
-                                            // Send to like API
-                                        }
+                        }
 
-                                        else -> {}
+                        LaunchedEffect(it, state.swipedDirection) {
+                            if (state.swipedDirection != null) {
+                                // Handle swipe action here, e.g., send user ID to the API
+                                when (state.swipedDirection) {
+                                    Direction.Left -> {
+                                        viewModel.dislikeUser(it.userId)
+                                        // Send to dislike API
                                     }
+
+                                    Direction.Right -> {
+                                        viewModel.likeUser(it.userId)
+                                        // Send to like API
+                                    }
+
+                                    else -> {}
                                 }
                             }
                         }
@@ -171,7 +168,9 @@ fun MainScreenContent(
                         icon = painterResource(id = R.drawable.close),
                         onClick = {
                             scope.launch {
-                                states.lastOrNull { it.second.offset.value == Offset.Zero }?.second?.swipe(Direction.Left)
+                                states.lastOrNull { it.second.offset.value == Offset.Zero }?.second?.swipe(
+                                    Direction.Left
+                                )
                             }
                         }
                     )
@@ -180,7 +179,9 @@ fun MainScreenContent(
                         icon = painterResource(id = R.drawable.like),
                         onClick = {
                             scope.launch {
-                                states.lastOrNull { it.second.offset.value == Offset.Zero }?.second?.swipe(Direction.Right)
+                                states.lastOrNull { it.second.offset.value == Offset.Zero }?.second?.swipe(
+                                    Direction.Right
+                                )
                             }
                         }
                     )
@@ -190,13 +191,6 @@ fun MainScreenContent(
         }
 
     }
-    Column (
-        Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Bottom
-    ) {
-        BottomNavigationBar(navController = navController)
-    }
-
 }
 
 @Composable
