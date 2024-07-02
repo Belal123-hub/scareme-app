@@ -31,23 +31,25 @@ fun ScareMeTextField(
         value = text,
         onValueChange = onValueChange,
         label = {
-            Text(text = label,
-            color = Color.White,
-            fontFamily =
-        FontFamily(
-            Font(R.font.baloopaaaji)
-        )
-        ) },
+            Text(
+                text = label,
+                color = Color.White,
+                fontFamily = FontFamily(
+                    Font(R.font.baloopaaaji)
+                )
+            )
+        },
         modifier = Modifier
             .fillMaxWidth()
             .background(Color(0xFF3A003A), shape = RoundedCornerShape(8.dp)),
         colors = TextFieldDefaults.outlinedTextFieldColors(
             focusedBorderColor = Color.Transparent,
             unfocusedBorderColor = Color.Transparent,
-            // textColor = Color.White,
             cursorColor = Color.White,
             focusedLabelColor = Color.White,
             unfocusedLabelColor = Color.White
-        )
+        ),
+        singleLine = true, // Add this line
+        textStyle = androidx.compose.ui.text.TextStyle(color = Color.White) // Add this line
     )
 }

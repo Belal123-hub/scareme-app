@@ -34,7 +34,9 @@ fun AppNavHost(
                 NavigationItem.Splash.route,
                 NavigationItem.Start.route,
                 NavigationItem.SignIn.route,
-                NavigationItem.SignUp.route
+                NavigationItem.SignUp.route,
+                NavigationItem.ProfileEdit.route
+
             )
             if (currentDestination?.route in screensWithoutBottomNav) {
                 return@Scaffold

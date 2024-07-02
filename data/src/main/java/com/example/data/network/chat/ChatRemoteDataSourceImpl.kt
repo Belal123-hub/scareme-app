@@ -2,6 +2,7 @@ package com.example.data.network.chat
 
 import android.util.Log
 import com.example.data.network.chat.model.ChatItemResponse
+import com.example.data.network.chat.model.CreateChatRequest
 import com.example.domain.chat.ChatRemoteDataSource
 import com.example.domain.chat.model.Chat
 import com.example.domain.chat.model.ChatItem
@@ -34,7 +35,19 @@ class ChatRemoteDataSourceImpl(
                     attachments = response.lastMessage.attachments
                 )
             )
+
+
         }
+    }
+
+    override suspend fun createChat(userId: String): Chat {
+        val request = CreateChatRequest(userId)
+        val response = chatApi.createChat(request)
+        return Chat(
+            id = response.id,
+            title = response.title,
+            avatar = response.avatar
+        )
     }
 
 }
