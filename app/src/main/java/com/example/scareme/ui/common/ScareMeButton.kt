@@ -22,7 +22,6 @@ fun ScareMeButton(name:String, onClick: () -> Unit) {
         modifier = Modifier
             .fillMaxWidth()
             .height(56.dp)
-
         ,
         colors = ButtonDefaults.buttonColors(
             containerColor = Color(0xFFFFA500)

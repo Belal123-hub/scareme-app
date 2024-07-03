@@ -14,11 +14,12 @@ import com.example.scareme.ui.screens.auth.signIn.SignInScreen
 import com.example.scareme.ui.screens.auth.signUp.SignUpScreen
 import com.example.scareme.ui.screens.auth.start.StartScreen
 import com.example.scareme.ui.screens.main.MainScreen
-import com.example.scareme.ui.screens.message.chat.ChatScreen
 import com.example.scareme.ui.screens.message.chatList.ChatListScreen
 import com.example.scareme.ui.screens.profile.profileEdit.ProfileEditScreen
+import com.example.scareme.ui.screens.profile.profileEdit.ProfileEditViewModel
 import com.example.scareme.ui.screens.profile.profileInfo.ProfileInfoScreen
 import com.example.scareme.ui.screens.splash.LaunchScreen
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun AppNavHost(
@@ -56,7 +57,9 @@ fun AppNavHost(
         ) {
             composable(NavigationItem.Splash.route) {
                 LaunchScreen { navItem ->
-                    navController.navigate(navItem.route)
+                    //navController.navigate(navItem.route)
+                    navController.navigate(NavigationItem.Start.route)
+
                 }
             }
 
@@ -76,9 +79,12 @@ fun AppNavHost(
             }
 
             composable(NavigationItem.ProfileEdit.route) {
+                val viewModel = koinViewModel<ProfileEditViewModel>()
                 ProfileEditScreen(
-                    onSignInSuccess = { navController.navigate(NavigationItem.Home.route) }
-                )
+                    profile = viewModel.profile, // Pass the profile data
+                    onSignInSuccess = {
+                        navController.navigate(NavigationItem.Home.route)
+                    })
             }
 
             composable(NavigationItem.SignIn.route) {
@@ -94,7 +100,11 @@ fun AppNavHost(
             }
 
             composable(NavigationItem.ProfileInfo.route) {
-                ProfileInfoScreen()
+                ProfileInfoScreen(
+                    onEditProfile = {
+                        navController.navigate(NavigationItem.ProfileEdit.route)
+                    }
+                )
             }
 
             composable(NavigationItem.ChatList.route) {
@@ -102,7 +112,7 @@ fun AppNavHost(
             }
 
             composable(NavigationItem.Chat.route) {
-                ChatScreen()
+                //ChatScreen()
             }
         }
     }

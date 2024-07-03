@@ -9,8 +9,11 @@ import com.example.domain.auth.useCase.SignOutUseCase
 import com.example.domain.auth.useCase.SignOutUseCaseImpl
 import com.example.domain.auth.useCase.SignUpUseCase
 import com.example.domain.auth.useCase.SignUpUseCaseImpl
+import com.example.domain.chat.usecase.CreateChatUseCase
+import com.example.domain.chat.usecase.CreateChatUseCaseImpl
 import com.example.domain.chat.usecase.GetChatListUseCase
 import com.example.domain.chat.usecase.GetChatListUseCaseImpl
+
 import com.example.domain.profile.usecase.GetAllTopicsUseCase
 import com.example.domain.profile.usecase.GetAllTopicsUseCaseImpl
 import com.example.domain.profile.usecase.GetProfileUseCase
@@ -39,5 +42,8 @@ val useCaseModule = module {
     factoryOf(::LikeUserUseCaseImpl) { bind<LikeUserUseCase>() }
     factoryOf(::DislikeUserUseCaseImpl) { bind<DislikeUserUseCase>() }
     factoryOf(::GetChatListUseCaseImpl) { bind<GetChatListUseCase>() }
+    factoryOf(::CreateChatUseCaseImpl) { bind<CreateChatUseCase>() }
+    //factoryOf(::SendMessageUseCaseImpl) { bind<SendMessageUseCase>() }
+    //factoryOf(::GetChatMessagesUseCaseImpl) { bind<GetChatMessagesUseCase>() }
 
 }

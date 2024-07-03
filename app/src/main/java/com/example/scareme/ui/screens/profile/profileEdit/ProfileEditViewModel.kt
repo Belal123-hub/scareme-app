@@ -1,8 +1,11 @@
 package com.example.scareme.ui.screens.profile.profileEdit
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.auth.useCase.SignOutUseCase
+import com.example.domain.profile.model.Profile
 import com.example.domain.profile.model.Topic
 import com.example.domain.profile.model.UpdateProfileRequest
 import com.example.domain.profile.usecase.GetAllTopicsUseCase
@@ -19,7 +22,8 @@ class ProfileEditViewModel(
     private val updateProfileUseCase: UpdateProfileUseCase,
     private val getAllTopicsUseCase: GetAllTopicsUseCase
 ):ViewModel() {
-
+    private val _profile = MutableLiveData<Profile>()
+    val profile: LiveData<Profile> = _profile
     private val _topics = MutableStateFlow(emptyList<TopicUi>())
     val topics = _topics.asStateFlow()
 

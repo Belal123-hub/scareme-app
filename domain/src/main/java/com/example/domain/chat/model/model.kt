@@ -24,5 +24,5 @@ data class Message(
 
 data class ChatItem(
     val chat: Chat,
-    val lastMessage: Message
+    val lastMessage: Message?
 )

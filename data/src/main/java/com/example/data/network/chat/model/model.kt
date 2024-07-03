@@ -4,9 +4,9 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class AttachmentResponse(
-    val id: String,
+    val id:String,
     val type: String,
-    val url: String
+    val url: String // Adjust as per actual response
 )
 
 @Serializable
@@ -36,5 +36,5 @@ data class MessageResponse(
 @Serializable
 data class ChatItemResponse(
     val chat: ChatResponse,
-    val lastMessage: MessageResponse
+    val lastMessage: MessageResponse?
 )

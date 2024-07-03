@@ -93,12 +93,12 @@ fun SignUpContent(
             ScareMeTextField(
                 label = stringResource(R.string.password),
                 text = password,
-                onValueChange = { password = it })
+                onValueChange = { password = it },isPassword = true)
             Spacer(modifier = Modifier.height(8.dp))
             ScareMeTextField(
                 label = stringResource(R.string.repeat_password),
                 text = repeatPassword,
-                onValueChange = { repeatPassword = it })
+                onValueChange = { repeatPassword = it },isPassword = true)
             Spacer(modifier = Modifier.height(300.dp))
             ScareMeButton(
                 stringResource(R.string.sign_up),

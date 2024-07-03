@@ -1,8 +1,11 @@
+@file:Suppress("UNUSED_EXPRESSION")
+
 package com.example.scareme.ui.screens.profile.profileInfo
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -18,6 +21,7 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -36,27 +40,27 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.domain.profile.model.Profile
 import com.example.scareme.R
-import com.example.scareme.ui.navigation.BottomNavigationBar
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun ProfileInfoScreen(
+  onEditProfile:()->Unit,
     viewModel: ProfileInfoViewModel = koinViewModel(),
 ) {
     val profile by viewModel.profile.collectAsState()
 
-    profile?.let { ProfileInfoContent(profile = it) }
+    profile?.let { ProfileInfoContent(profile = it, onEditProfile) }
 
 }
 
 @Composable
 fun ProfileInfoContent(
-    profile: Profile
+    profile: Profile,
+    onEditProfile: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -114,6 +118,19 @@ fun ProfileInfoContent(
                     fontFamily = FontFamily(Font(R.font.baloopaaaji))
                 )
             }
+
+            // Edit Profile Icon
+            Icon(
+                painter = painterResource(id = R.drawable.ic_profile_edit),
+                contentDescription = null,
+                modifier = Modifier
+                    .padding(16.dp)
+                    .size(40.dp)
+                    .align(Alignment.TopEnd)
+                    .clickable {
+                        onEditProfile() // Invoke the function
+                    }
+            )
         }
 
         Spacer(modifier = Modifier.height(20.dp))
@@ -178,10 +195,3 @@ fun Topic(
         )
     }
 }
-
-
-//@Preview(showBackground = true)
-//@Composable
-//fun ProfileScreenPreview() {
-//    ProfileInfoScreen()
-//}

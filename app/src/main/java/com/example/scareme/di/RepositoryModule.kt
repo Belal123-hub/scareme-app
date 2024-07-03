@@ -21,5 +21,4 @@ val repositoryModule = module {
     factoryOf(::ProfileRepositoryImpl) { bind<ProfileRepository>() }
     factoryOf(::UserRepositoryImpl) { bind<UserRepository>() }
     factoryOf(::ChatRepositoryImpl) { bind<ChatRepository>() }
-
 }

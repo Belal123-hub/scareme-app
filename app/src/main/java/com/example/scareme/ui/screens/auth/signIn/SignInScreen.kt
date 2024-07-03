@@ -84,7 +84,7 @@ fun SignInContent(
             Spacer(modifier = Modifier.height(5.dp))
             ScareMeTextField(label = stringResource(R.string.e_mail), text = email, onValueChange ={email=it} )
             Spacer(modifier = Modifier.height(8.dp))
-            ScareMeTextField(label = stringResource(R.string.password), text = password, onValueChange = {password=it})
+            ScareMeTextField(label = stringResource(R.string.password), text = password, onValueChange = {password=it},isPassword = true)
 
             Spacer(modifier = Modifier.height(300.dp))
            ScareMeButton(stringResource(R.string.sign_in), onClick = {onSignInClick(email,password)})

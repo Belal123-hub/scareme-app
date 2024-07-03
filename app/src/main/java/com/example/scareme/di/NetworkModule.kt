@@ -26,5 +26,4 @@ val networkModule = module {
     single<ProfileApi> { Network.getApi(get()) }
     single<UserApi> { Network.getApi(get()) }
     single<ChatApi> { Network.getApi(get()) }
-
 }

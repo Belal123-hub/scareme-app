@@ -20,5 +20,4 @@ val dataSourceModule = module {
     factoryOf(::ProfileRemoteDataSourceImpl) { bind<ProfileRemoteDataSource>()}
     factoryOf(::UserRemoteDataSourceImpl) { bind<UserRemoteDataSource>() }
     factoryOf(::ChatRemoteDataSourceImpl) { bind<ChatRemoteDataSource>() }
-
 }

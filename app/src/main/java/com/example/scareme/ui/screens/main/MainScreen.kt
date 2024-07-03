@@ -147,7 +147,7 @@ fun MainScreenContent(
 
                                     Direction.Right -> {
                                         viewModel.likeUser(it.userId)
-                                        // Send to like API
+                                        // Send to like API and create chat
                                     }
 
                                     else -> {}
@@ -192,6 +192,7 @@ fun MainScreenContent(
 
     }
 }
+
 
 @Composable
 fun ProfileCard(

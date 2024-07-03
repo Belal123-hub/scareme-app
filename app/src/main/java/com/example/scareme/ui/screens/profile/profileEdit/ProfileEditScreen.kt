@@ -24,6 +24,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -38,6 +39,8 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.LiveData
+import com.example.domain.profile.model.Profile
 import com.example.scareme.R
 import com.example.scareme.ui.common.ScareMeButton
 import com.example.scareme.ui.common.ScareMeTextField
@@ -48,11 +51,14 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun ProfileEditScreen(
+    profile: LiveData<Profile>,
     onSignInSuccess:()->Unit,
     viewModel: ProfileEditViewModel = koinViewModel()
 ) {
-    var name by remember { mutableStateOf("") }
-    var about by remember { mutableStateOf("") }
+
+    val profileValue by profile.observeAsState(null)
+    var name by remember { mutableStateOf(profileValue?.name ?: "") }
+    var about by remember { mutableStateOf(profileValue?.aboutMyself ?: "") }
 
     val topics by viewModel.topics.collectAsState()
   //  val updateStatus by viewModel.updateStatus.collectAsState()
@@ -105,18 +111,18 @@ fun ProfileEditContent(
             .fillMaxSize()
             .background(Color(0xFF1E001E)),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+        verticalArrangement = Arrangement.SpaceEvenly // Changed to SpaceEvenly
     ) {
 
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center,
+            verticalArrangement = Arrangement.SpaceEvenly, // Changed to SpaceEvenly
             modifier = Modifier.padding(16.dp)
         ) {
 
             Text(
                 text = stringResource(R.string.why_are_you_scary),
-                fontSize = 36.sp,
+                fontSize = 24.sp, // Reduced font size for better responsiveness
                 fontWeight = FontWeight.Bold,
                 color = Color.White,
                 fontFamily = FontFamily(Font(R.font.baloopaaaji))
@@ -125,19 +131,19 @@ fun ProfileEditContent(
                 painter = painterResource(id = R.drawable.group_7),
                 contentDescription = stringResource(R.string.pick_up_a_profile_photo),
                 modifier = Modifier
-                    .width(150.dp)
-                    .height(150.dp)
+                    .width(120.dp) // Reduced image size for better responsiveness
+                    .height(120.dp)
             )
-            Spacer(modifier = Modifier.height(5.dp))
+            Spacer(modifier = Modifier.height(10.dp)) // Reduced spacer height
             ScareMeTextField(label = stringResource(R.string.user_name), text = name, onValueChange = onNameChange)
-            Spacer(modifier = Modifier.height(5.dp))
+            Spacer(modifier = Modifier.height(10.dp)) // Reduced spacer height
             OutlinedTextField(
                 value = about,
                 onValueChange = onAboutChange,
                 label = { Text(text = " About ", color = Color.White) },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(140.dp)
+                    .height(120.dp) // Reduced text field height
                     .background(Color(0xFF3A003A), shape = RoundedCornerShape(8.dp)),
                 colors = TextFieldDefaults.outlinedTextFieldColors(
                     focusedBorderColor = Color.Transparent,
@@ -149,7 +155,7 @@ fun ProfileEditContent(
             )
             Text(
                 text = stringResource(R.string.party_topics),
-                fontSize = 36.sp,
+                fontSize = 24.sp, // Reduced font size for better responsiveness
                 fontWeight = FontWeight.Bold,
                 color = Color.White,
                 fontFamily = FontFamily(Font(R.font.baloopaaaji))
@@ -158,7 +164,7 @@ fun ProfileEditContent(
             LazyColumn(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(100.dp)
+                    .height(150.dp) // Increased lazy column height
             ) {
                 items(topics.chunked(3)) { rowTopics ->
                     LazyRow(
@@ -173,7 +179,7 @@ fun ProfileEditContent(
                 }
             }
 
-            Spacer(modifier = Modifier.height(120.dp))
+            Spacer(modifier = Modifier.height(20.dp)) // Reduced spacer height
             ScareMeButton(stringResource(R.string.save), onSaveButton)
         }
     }

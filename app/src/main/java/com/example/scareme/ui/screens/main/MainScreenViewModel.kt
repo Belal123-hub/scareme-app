@@ -3,6 +3,7 @@ package com.example.scareme.ui.screens.main
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.domain.chat.usecase.CreateChatUseCase
 import com.example.domain.users.usecase.DislikeUserUseCase
 import com.example.domain.users.usecase.GetAllUsersUseCase
 import com.example.domain.users.usecase.LikeUserUseCase
@@ -15,7 +16,8 @@ import kotlinx.coroutines.launch
 class MainScreenViewModel(
     private val getAllUsersUseCase: GetAllUsersUseCase,
     private val likeUserUseCase: LikeUserUseCase,
-    private val dislikeUserUseCase: DislikeUserUseCase
+    private val dislikeUserUseCase: DislikeUserUseCase,
+    private val createChatUseCase: CreateChatUseCase  // Add CreateChatUseCase
 ) : ViewModel() {
     private val _users = MutableStateFlow(emptyList<UserUi>())
     val users = _users.asStateFlow()
@@ -65,7 +67,7 @@ class MainScreenViewModel(
                 .onSuccess {
                     println("Liked user: $userId")
                     likedUsersMap[userId] = true
-                    // fetchAllUsers()
+                    createChat(userId)  // Create a chat when a user is liked
                 }
             fetchAllUsers()
             _isRequestInProgress.value = false
@@ -86,6 +88,17 @@ class MainScreenViewModel(
                 }
             fetchAllUsers()
             _isRequestInProgress.value = false
+        }
+    }
+
+    private fun createChat(userId: String) {
+        viewModelScope.launch {
+            runCatching { createChatUseCase(userId) }
+                .onFailure { throwable -> println("Error creating chat: ${throwable.message}") }
+                .onSuccess { chat ->
+                    println("Chat created: ${chat.id}")
+                    // Handle the newly created chat, e.g., navigate to chat screen
+                }
         }
     }
 }
