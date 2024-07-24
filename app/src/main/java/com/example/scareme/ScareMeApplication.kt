@@ -22,3 +22,5 @@ class ScareMeApplication : Application() {
 
 
 }
+
+// this file to start koin
