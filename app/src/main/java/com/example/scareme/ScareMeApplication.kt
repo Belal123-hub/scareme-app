@@ -19,8 +19,6 @@ class ScareMeApplication : Application() {
              modules(appComponent)
         }
     }
-
-
+    
 }
 
-// this file to start koin

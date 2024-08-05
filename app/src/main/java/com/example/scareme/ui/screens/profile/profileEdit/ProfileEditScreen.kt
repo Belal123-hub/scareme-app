@@ -140,7 +140,11 @@ fun ProfileEditContent(
             OutlinedTextField(
                 value = about,
                 onValueChange = onAboutChange,
-                label = { Text(text = " About ", color = Color.White) },
+                label = { Text(
+                    text = " About ",
+                    color = Color.White,
+                    fontFamily = FontFamily(Font(R.font.baloopaaaji))
+                ) },
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(120.dp) // Reduced text field height
@@ -151,7 +155,8 @@ fun ProfileEditContent(
                     cursorColor = Color.White,
                     focusedLabelColor = Color.White,
                     unfocusedLabelColor = Color.White
-                )
+                ),
+                textStyle = androidx.compose.ui.text.TextStyle(color = Color.White)
             )
             Text(
                 text = stringResource(R.string.party_topics),

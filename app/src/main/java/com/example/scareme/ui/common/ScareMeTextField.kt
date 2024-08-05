@@ -36,6 +36,7 @@ fun ScareMeTextField(
 ) {
     var passwordVisible by remember { mutableStateOf(false) }
 
+
     OutlinedTextField(
         value = text,
         onValueChange = onValueChange,
@@ -75,3 +76,6 @@ fun ScareMeTextField(
         }
     )
 }
+
+
+
