@@ -19,3 +19,6 @@ likes back he will be in the chatlist
 
 6- and from the Profile Info user can come back to Profile screen and edit his info
 7- the chat unfortuantely i did the chatlist successfully but i am still working on the messages screen and i just did the UI and viewmodel but still didn't finish with the Api
+
+
+![X - 15](https://github.com/user-attachments/assets/3cad056b-63c2-44f5-aff3-80c574365285)
